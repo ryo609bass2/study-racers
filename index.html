@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#122939">
+  <meta name="description" content="算数でチャージ、走りでチャレンジ。小学6年生の算数を楽しむ、3周・5問の2Dレーシングゲーム。">
+  <title>スタディレーサーズ｜算数でチャージ、走りでチャレンジ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='16' width='64' height='64' fill='%23122939'/%3E%3Cpath d='M36 7 15 36h16l-4 21 23-31H34z' fill='%23ffc44d'/%3E%3C/svg%3E">
+  <style>:root{color-scheme:dark;--ink:#102b3a;--navy:#102736;--yellow:#ffc34a;--cyan:#61d8e3;--muted:#a4b6bc;--white:#f7faf8;font-family:'Yu Gothic UI','Hiragino Kaku Gothic ProN',Meiryo,system-ui,sans-serif;font-synthesis:none}*{box-sizing:border-box}body{margin:0;background:var(--navy);color:var(--white);overflow:hidden}button,input,select{font:inherit}button,a,input,select,summary{-webkit-tap-highlight-color:transparent}button{cursor:pointer;border:0}button:disabled{cursor:default;opacity:.45}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #00bacc;outline-offset:4px}button{transition:background .15s,transform .15s}button:active:not(:disabled){transform:translateY(1px)}[hidden]{display:none!important}#app{height:100dvh;min-height:500px;position:relative;isolation:isolate}#world{position:absolute;inset:0;width:100%;height:100%;z-index:-3}.vignette{position:absolute;inset:0;pointer-events:none;z-index:-2;background:linear-gradient(90deg,rgba(9,28,40,.95),rgba(9,28,40,.68) 44%,rgba(9,28,40,.4));transition:opacity .4s}.playing .vignette{opacity:0}.topbar{height:86px;padding:0 4.2%;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:4;background:linear-gradient(#102736ba,transparent)}.brand{display:flex;align-items:center;gap:11px;color:white;text-decoration:none;font-size:18px;font-weight:900;letter-spacing:.06em;white-space:nowrap}.brand-mark{display:grid;place-items:center;width:34px;height:37px;background:var(--yellow);color:var(--ink);border-radius:9px;font-size:32px;transform:skew(-9deg)}.brand-light{font-weight:400}.top-actions{display:flex;align-items:center;gap:12px}.course-label{font-size:12px;letter-spacing:.14em;color:#c0d2d5;margin-right:10px}.course-label i{display:inline-block;width:20px;height:1px;background:#98b2b8;vertical-align:middle;margin:0 8px}.icon-button{background:#132d3fde;color:#eef7fa;border:1px solid #7595a54f;border-radius:8px;padding:9px 13px;font-size:14px;white-space:nowrap}.icon-button:hover{background:#254b60}.menu{max-width:1440px;margin:auto;padding:30px 6% 20px;display:grid;grid-template-columns:minmax(340px,1fr) 410px;gap:7%;height:calc(100dvh - 86px);align-content:center;position:relative}.hero{align-self:center;padding-bottom:36px}.eyebrow{display:flex;align-items:center;gap:12px;letter-spacing:.1em;font-size:14px;color:var(--cyan);font-weight:700}.small-checker{height:16px;width:24px;display:inline-block;background:conic-gradient(#61d8e3 25%,transparent 0 50%,#61d8e3 0 75%,transparent 0) 0 0/8px 8px;transform:skew(-12deg)}h1{font-size:clamp(40px,4.5vw,66px);line-height:1.42;letter-spacing:.035em;margin:23px 0 18px;font-weight:900}h1 span{color:var(--yellow)}.hero-copy{color:#bed0d4;font-size:16px;line-height:1.95}.race-facts{display:flex;gap:42px;margin:31px 0 30px}.race-facts>div{display:flex;flex-direction:column;gap:4px}.race-facts strong{font-size:40px;line-height:1;font-weight:800}.race-facts strong span{font-size:16px;margin-left:6px;color:var(--cyan)}.race-facts small{font-size:12px;color:#9ab2bb;margin-top:5px}.hero-note{font-size:13px;color:#c7d6d9;line-height:1.8}.hero-note>span:first-child{background:#34515c;color:var(--yellow);border-radius:5px;padding:2px 6px;margin-right:8px;font-weight:bold}.note-indent{padding-left:32px}.setup-card{background:var(--white);color:var(--ink);border-radius:22px;padding:28px 30px;box-shadow:0 22px 80px #0005;border-top:5px solid var(--yellow);align-self:center}.card-kicker{font-size:11px;letter-spacing:.17em;font-weight:800;color:#5b7b83}h2{font-size:25px;margin:7px 0 22px;letter-spacing:.03em}fieldset{border:0;margin:0 0 22px;padding:0}legend{font-weight:700;font-size:14px;margin-bottom:10px}legend small{font-size:11px;font-weight:400;color:#5c7179;margin-left:10px}.unit-options{display:grid;grid-template-columns:1.2fr .8fr .9fr;gap:7px}.unit-options label{position:relative;cursor:pointer}.unit-options input{position:absolute;opacity:0;width:100%;height:100%;margin:0}.unit-options span{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;font-size:12px;background:#e8efef;border:2px solid transparent;border-radius:10px;padding:10px 2px;pointer-events:none;color:#547079}.unit-options b{font-size:20px;line-height:1.1}.unit-options input:checked+span{background:#dff4f4;border-color:#27848e;color:#173d48}.unit-options input:focus-visible+span{outline:3px solid #00bacc;outline-offset:3px}.settings-row{display:flex;align-items:center;justify-content:space-between;margin:14px 0;gap:15px}.settings-row>label{font-size:14px;font-weight:700}.settings-row select{background:#eaf0f0;color:var(--ink);border:1px solid #d8e1e3;border-radius:8px;padding:9px 29px 9px 12px;appearance:none;min-width:126px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' stroke='%232e5665' fill='none' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:14px;background-position:right 9px center;font-size:14px}.assist-option{display:flex;align-items:center;position:relative;gap:10px;border-top:1px solid #dce5e5;padding-top:19px;margin-top:18px;cursor:pointer}.assist-option>span:first-child{flex:1}.assist-option strong{display:block;font-size:14px}.assist-option small{display:block;font-size:11px;color:#657d83;margin-top:5px}.assist-option input{position:absolute;right:0;width:43px;height:25px;opacity:0}.switch{height:25px;width:43px;background:#98a9af;border-radius:30px;position:relative;flex-shrink:0}.switch:after{content:'';height:19px;width:19px;background:white;position:absolute;left:3px;top:3px;border-radius:50%;transition:transform .2s}.assist-option input:checked+.switch{background:#217f8c}.assist-option input:checked+.switch:after{transform:translateX(18px)}.assist-option input:focus-visible+.switch{outline:3px solid #00bacc;outline-offset:4px}.display-settings{font-size:12px;color:#57737d;margin:15px 0}.display-settings summary{cursor:pointer}.display-settings label{display:block;margin-top:9px}.display-settings input{accent-color:#217f8c}.primary{background:var(--yellow);color:var(--ink);border-radius:11px;padding:15px 24px;font-size:17px;font-weight:800;box-shadow:0 4px 0 #e4a833}.primary:hover{background:#ffd16e}.start-button{width:100%;display:flex;justify-content:center;gap:17px;align-items:center}.flag-mark{font-size:24px;line-height:1}.setup-foot{text-align:center;font-size:11px;color:#698088;margin:14px 0 0}.error{font-size:13px;color:#ac3f35;margin:8px 0}.error:empty{display:none}.menu-footer{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;color:#97afb8;font-size:12px;position:absolute;bottom:20px;left:6%;right:6%;gap:15px}.menu-footer b{color:var(--yellow);margin-left:10px}.text-button{background:none;color:inherit;padding:7px;font-size:13px;text-decoration:underline;text-underline-offset:4px}.hud-top{position:absolute;left:4.2%;right:4.2%;top:108px;display:flex;justify-content:space-between;pointer-events:none}.place-panel,.lap-panel{background:#102b3de8;border:1px solid #86abb441;box-shadow:0 8px 30px #0002;backdrop-filter:blur(10px);border-radius:14px;padding:16px 22px}.hud-label{color:#a9c9d1;font-size:11px;letter-spacing:.16em;display:block}.place-panel>strong{display:block;font-size:54px;line-height:1.2;color:var(--yellow)}.place-panel strong span{font-size:20px;color:#b4cbd0;margin-left:12px;font-weight:400}.player-name{font-size:11px;color:#d4e1e6}.lap-panel{text-align:right;min-width:140px}.lap-panel strong{font-size:32px}.lap-panel strong span{font-size:17px;color:#b3c8d0}#timer{font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:.05em;margin-top:6px}.notice{position:absolute;top:108px;left:50%;transform:translateX(-50%);background:#102b3de8;border:1px solid #60a6b2;border-radius:9px;padding:11px 20px;color:#d9faff;font-size:14px;text-align:center;max-width:45%}.notice:empty{display:none}.mini-panel{position:absolute;right:4.2%;top:260px;background:#102b3ddd;border:1px solid #86abb441;border-radius:12px;overflow:hidden;text-align:center;width:180px;padding:8px}.mini-panel canvas{width:100%;height:auto;display:block}.mini-panel>span{font-size:11px;color:#bfdce1}.hud-bottom{position:absolute;bottom:71px;left:4.2%;right:4.2%;display:flex;align-items:stretch;gap:15px;pointer-events:none}.speed-panel,.boost-panel,.item-panel{background:#102b3dea;border:1px solid #86abb441;border-radius:14px;padding:15px 20px;backdrop-filter:blur(12px)}.speed-panel{min-width:130px}.speed-panel>strong{font-size:39px;line-height:1}.speed-panel>span{font-size:12px;color:#abc8ce;margin-left:5px}.speed-panel small{display:block;font-size:11px;color:var(--cyan);margin-top:9px}.boost-panel{width:280px}.boost-panel>div:first-child{display:flex;justify-content:space-between;gap:10px;align-items:center}.boost-panel>div:first-child>span{font-size:10px;letter-spacing:.1em;color:#b5d0d6}.boost-panel strong{font-size:20px;color:var(--yellow)}.boost-panel strong small{font-size:11px;color:#a2bbc5;font-weight:400}.energy-track{height:9px;background:#3b5666;border-radius:10px;position:relative;margin:8px 0 11px;overflow:hidden}.energy-track>div{height:100%;width:0;background:var(--yellow);border-radius:10px;transition:width .15s}.energy-track i{position:absolute;left:40%;top:0;bottom:0;width:2px;background:#132e3d}.hud-action{background:none;color:#c3d9df;font-size:12px;padding:0;display:flex;gap:7px;align-items:center;pointer-events:auto}.hud-action small{font-size:11px;color:#a5bec5}kbd{font:11px system-ui;border:1px solid #87a7b577;border-radius:4px;padding:2px 5px;background:#bedae414;color:#d7e8ed;min-width:20px;text-align:center;display:inline-block}.item-panel{margin-left:auto;display:flex;align-items:center;gap:18px;min-width:210px;pointer-events:auto}.item-glyph{font-size:31px;color:var(--cyan);width:40px;text-align:center}.item-panel strong{display:block;font-size:15px;margin:6px 0 9px}.drive-guide{position:absolute;bottom:23px;left:4.2%;right:4.2%;display:flex;justify-content:center;gap:28px;font-size:11px;color:#d1e3e7;text-shadow:0 2px 5px #000}.drive-guide button{color:inherit;background:none;padding:0;font-size:11px}.drive-guide kbd{margin:0 2px}.countdown{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none;background:#0d263930;z-index:5}.countdown>span{font-size:18px;letter-spacing:.3em;background:#102b3de6;padding:9px 17px;border-radius:8px}.countdown>strong{font-size:140px;line-height:1.4;color:var(--yellow);text-shadow:0 8px 0 #102b3d,0 15px 50px #0008}.countdown small{font-size:16px;background:#102b3de6;padding:10px 18px;border-radius:8px}.toast{position:absolute;left:50%;bottom:220px;transform:translate(-50%,10px);z-index:15;background:#f7faf8;color:var(--ink);padding:12px 24px;border-radius:10px;box-shadow:0 10px 35px #0004;font-size:15px;font-weight:700;opacity:0;pointer-events:none;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.overlay{position:absolute;inset:0;z-index:10;background:#071c30b8;backdrop-filter:blur(8px);padding:30px;display:flex;align-items:center;justify-content:center}.dialog{width:min(800px,100%);max-height:calc(100dvh - 60px);overflow:auto;background:var(--white);color:var(--ink);border-radius:22px;padding:35px 42px;box-shadow:0 25px 80px #0006;color-scheme:light;outline:none}.dialog h2{font-size:28px;margin:10px 0 20px}.dialog p{line-height:1.8}.dialog .eyebrow{color:#217f8c;font-size:12px}.quiz-topline{display:flex;align-items:center;justify-content:space-between;gap:20px}.quiz-topline .pill{background:#e4eeee;border-radius:20px;padding:6px 13px;font-size:12px;color:#496a76}.quiz-progress{display:flex;gap:5px;margin:18px 0 25px}.quiz-progress span{height:5px;background:#dce7e8;flex:1;border-radius:3px}.quiz-progress .done{background:#43a5a8}.quiz-progress .current{background:#ffc34a}.question-prompt{font-size:28px;font-weight:700;line-height:1.75;white-space:pre-wrap;margin:16px 0 26px;overflow-wrap:anywhere}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.choice{background:#edf3f3;color:var(--ink);border:2px solid #dbe5e7;border-radius:12px;padding:18px 12px;min-height:100px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:24px;font-weight:700;overflow-wrap:anywhere;justify-content:center}.choice>small{font-size:11px;color:#62828c;background:#dbe7e9;border-radius:5px;min-width:22px;padding:3px 7px}.choice.selected{border-color:#258a96;background:#def3f2;box-shadow:0 0 0 1px #258a96}.choice.correct{background:#dff3e7;border-color:#298557}.choice.incorrect{border-color:#c97c60;background:#f9eee5}.choice:hover:not(:disabled){border-color:#258a96}.quiz-actions{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:23px}.secondary{padding:13px 19px;background:#e6eeee;color:#234657;border-radius:10px;font-weight:700;font-size:15px}.secondary:hover{background:#d8e6e7}.subtle{background:transparent;color:#526f79;font-size:13px;padding:10px 2px;text-decoration:underline;text-underline-offset:3px}.hint-box,.explanation{background:#eaf2f1;padding:18px 20px;border-radius:12px;line-height:1.9;font-size:17px;white-space:pre-wrap;margin:17px 0}.hint-box:before{content:'ヒント';display:block;color:#267480;font-size:12px;font-weight:bold;letter-spacing:.1em;margin-bottom:4px}.reward-tag{display:inline-flex;gap:10px;background:#fff0c5;color:#755219;border-radius:8px;padding:9px 14px;font-size:14px;font-weight:bold;margin:7px 0}.feedback-title{color:#23704a}.feedback-title.wrong{color:#9d5532}.small-info{color:#607984;font-size:13px;line-height:1.8}.dialog-footer{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:24px}.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.help-grid>div{background:#eaf1f1;border-radius:10px;padding:15px;font-size:14px;line-height:1.8}.help-grid kbd{background:#d7e4e7;color:#234657;border-color:#b5cbd0}.help-grid strong{display:block;margin-bottom:7px}.help-list{font-size:14px;line-height:1.9;padding-left:22px}.pause-settings{background:#eaf1f1;border-radius:10px;padding:14px 19px;display:flex;gap:16px;flex-wrap:wrap;font-size:14px}.pause-settings input{accent-color:#258a96}.result-banner{display:flex;align-items:center;gap:25px;padding:16px 0 22px;border-bottom:1px solid #dce6e6}.result-place{font-size:70px;color:#be8010;font-weight:900;line-height:1}.result-place small{font-size:20px}.result-stats{display:flex;gap:25px}.result-stats>div{font-size:12px;color:#5c7681}.result-stats strong{display:block;font-size:24px;color:var(--ink);margin-top:5px}.result-summary{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.result-summary span{font-size:12px;background:#e7efef;padding:7px 10px;border-radius:6px}.answer-list{list-style:none;padding:0;margin:15px 0}.answer-list li{border-bottom:1px solid #e1e9e9;padding:10px 0;display:flex;gap:12px;align-items:center;font-size:14px}.answer-list .outcome{min-width:66px;font-size:12px;font-weight:700;color:#277a60}.answer-list .wrong{color:#a15c37}.answer-list .answer-text{flex:1}.answer-list button{font-size:12px;white-space:nowrap;color:#29697a;background:#e6efef;border-radius:6px;padding:7px 10px}.history-list{list-style:none;padding:0;font-size:14px}.history-list li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #d9e4e5;padding:14px 0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.large-text .question-prompt{font-size:35px}.large-text .choice{font-size:30px}.large-text .explanation,.large-text .hint-box{font-size:21px}.reduced *{transition:none!important;scroll-behavior:auto!important}.playing .topbar{height:76px}.playing .course-label{display:none}
+@media(max-height:760px) and (min-width:901px){.topbar{height:69px}.menu{height:calc(100dvh - 69px);padding-top:8px;padding-bottom:45px}.setup-card{padding:21px 26px}.hero{padding-bottom:15px}h1{font-size:48px;margin-top:18px}.race-facts{margin:24px 0}.hero-note{font-size:12px}.setup-card h2{margin-bottom:16px}.unit-options span{padding:8px 2px}fieldset{margin-bottom:15px}.settings-row{margin:10px 0}.assist-option{padding-top:14px;margin-top:14px}.display-settings{margin:12px 0}.menu-footer{bottom:12px}.dialog{padding:25px 34px}.question-prompt{font-size:26px;margin:12px 0 20px}.quiz-progress{margin:13px 0 20px}.choice{min-height:85px;padding:13px 10px}.quiz-actions{margin-top:16px}}
+@media(max-width:1050px){.menu{gap:4%;padding-left:5%;padding-right:5%;grid-template-columns:minmax(270px,1fr) 360px}.setup-card{padding:24px}.course-label{display:none}.race-facts{gap:28px}.hero-copy{font-size:14px}h1{font-size:44px}}
+@media(max-width:760px){body{overflow:auto}#app{min-height:100dvh;height:auto}#world{position:fixed}.topbar{padding:0 20px;height:72px}.brand{font-size:14px}.brand-mark{width:28px;height:31px}.top-actions{gap:6px}.icon-button{font-size:11px;padding:8px}.menu{display:flex;flex-direction:column;height:auto;padding:20px 24px 75px;gap:24px}.hero{padding:0}.hero h1{font-size:37px;margin:15px 0}.hero-copy{font-size:14px}.eyebrow{font-size:11px}.race-facts{margin:20px 0}.race-facts strong{font-size:30px}.hero-note{font-size:12px}.setup-card{width:100%;max-width:460px}.menu-footer{bottom:16px;flex-wrap:wrap;font-size:10px}.menu-footer>span:last-child{display:none}.playing #app{height:100dvh;min-height:460px}.hud-top{top:88px}.place-panel,.lap-panel{padding:10px 14px}.place-panel>strong{font-size:36px}.mini-panel{top:230px;width:120px}.hud-bottom{bottom:68px;gap:8px}.speed-panel{display:none}.boost-panel{width:52%;padding:11px}.item-panel{padding:11px;min-width:0;gap:8px;width:48%}.item-glyph{font-size:22px;width:25px}.item-panel strong{font-size:12px}.drive-guide{gap:8px;font-size:9px;bottom:25px}.drive-guide>span:nth-child(2){display:none}.notice{top:200px;font-size:12px;max-width:80%}.overlay{padding:14px}.dialog{padding:24px 20px;max-height:calc(100dvh - 28px)}.dialog h2{font-size:24px}.question-prompt{font-size:22px}.choices{gap:8px}.choice{font-size:18px;padding:12px 5px;min-height:85px}.quiz-actions{flex-wrap:wrap}.quiz-actions .primary{width:100%}.help-grid{grid-template-columns:1fr}.large-text .question-prompt{font-size:28px}.large-text .choice{font-size:23px}.result-banner{gap:15px}.result-stats{gap:15px}.result-stats strong{font-size:19px}.countdown>strong{font-size:110px}.top-actions #helpBtn{display:none}}
+.fraction{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.15;font-size:.86em;margin:0 .15em;min-width:.75em}.fraction>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .14em .08em}.fraction>span:last-child{padding:.08em .14em 0}.support-visual{background:#eaf2f1;border-radius:10px;padding:12px 16px;margin:-10px 0 18px}.support-visual small{display:block;font-size:12px;color:#526f79;margin:3px 0}.fraction-bar{display:flex;max-width:280px;height:27px;margin:7px 0;border:1px solid #498690;border-radius:4px;overflow:hidden}.fraction-bar span{flex:1;background:white;border-right:1px solid #498690}.fraction-bar span:last-child{border:0}.fraction-bar .filled{background:#64c9c5}.ratio-row{display:flex;align-items:center;gap:5px;margin:6px 0}.ratio-row b{font-size:15px;width:22px}.ratio-block{width:23px;height:20px;border:1px solid #345461;border-radius:3px}.ratio-block.warm{background:#eeaa8a}.ratio-block.cool{background:#91cbd9}.support-table{border-collapse:collapse;font-size:16px;margin:8px 0}.support-table th,.support-table td{border:1px solid #adc7cc;padding:7px 20px;text-align:center}.support-table th{background:#dbeaea}
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="world" aria-label="スタディサーキットのレース画面"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#" id="brand" aria-label="スタディレーサーズのタイトル"><span class="brand-mark">ϟ</span><span>STUDY<span class="brand-light"> RACERS</span></span></a>
+    <div class="top-actions"><span class="course-label">STUDY CIRCUIT <i></i> 01</span><button id="soundBtn" class="icon-button" aria-label="音を切り替える" title="音を切り替える">音 ON</button><button id="helpBtn" class="icon-button">あそび方</button><button id="pauseBtn" class="icon-button" hidden>一時停止</button></div>
+  </header>
+
+  <main id="menu" class="menu">
+    <section class="hero">
+      <div class="eyebrow"><span class="small-checker"></span> 小学6年生の算数 × レーシング</div>
+      <h1>学ぶたび、<br>走りが<span>変わる。</span></h1>
+      <p class="hero-copy">算数でチャージ。走りでチャレンジ。<br>きみだけのペースで、ゴールをめざそう。</p>
+      <div class="race-facts"><div><strong>3<span>周</span></strong><small>ひとつのレース</small></div><div><strong>5<span>問</span></strong><small>算数チャレンジ</small></div><div><strong>4<span>台</span></strong><small>いっしょに走ろう</small></div></div>
+      <div class="hero-note"><span>Ⅱ</span> 問題を考える間は、みんなでストップ。<br><span class="note-indent">あせらず考えてだいじょうぶ。</span></div>
+    </section>
+    <section class="setup-card" aria-labelledby="setupTitle">
+      <div class="card-kicker">READY TO RACE</div>
+      <h2 id="setupTitle">きょうのレース</h2>
+      <form id="setupForm">
+        <fieldset><legend>学ぶ単元 <small>1つ以上選ぼう</small></legend><div class="unit-options">
+          <label><input type="checkbox" name="unit" value="fraction" checked><span><b>½</b> 分数の乗除</span></label>
+          <label><input type="checkbox" name="unit" value="ratio" checked><span><b>2:3</b> 比</span></label>
+          <label><input type="checkbox" name="unit" value="proportion" checked><span><b>↗</b> 比例</span></label>
+        </div></fieldset>
+        <div class="settings-row"><label for="learning">算数のむずかしさ</label><select id="learning"><option value="support">サポート</option><option value="standard" selected>標準</option><option value="challenge">チャレンジ</option></select></div>
+        <div class="settings-row"><label for="cpu">CPUのつよさ</label><select id="cpu"><option value="easy">やさしい</option><option value="normal" selected>ふつう</option><option value="hard">つよい</option></select></div>
+        <label class="assist-option"><span><strong>運転アシスト</strong><small>自動アクセルとハンドルのお手伝い</small></span><input id="assist" type="checkbox" role="switch" checked><span class="switch" aria-hidden="true"></span></label>
+        <details class="display-settings"><summary>文字・画面の設定</summary><label><input id="largeText" type="checkbox"> 問題の文字を大きくする</label><label><input id="reduced" type="checkbox"> 画面の動きを少なくする</label></details>
+        <p id="setupError" class="error" role="alert"></p>
+        <button class="primary start-button" type="submit">レースをはじめる <span class="flag-mark" aria-hidden="true">▧</span></button>
+        <p class="setup-foot">3周 約3〜5分 ＋ 問題を考える時間</p>
+      </form>
+    </section>
+    <footer class="menu-footer"><span>スタディレーサーズ <b>01</b></span><button id="historyBtn" class="text-button">この端末のレース記録</button><span>キーボードであそぶ PC版</span></footer>
+  </main>
+
+  <section id="hud" aria-label="走行情報" hidden>
+    <div class="hud-top"><div class="place-panel"><span class="hud-label">POSITION</span><strong id="position">1<span>/ 4</span></strong><span class="player-name">YOU · きいろの車</span></div><div class="lap-panel"><span class="hud-label">LAP</span><strong id="lap">1 <span>/ 3</span></strong><div id="timer">00:00.00</div></div></div>
+    <div id="notice" class="notice" aria-live="polite"></div>
+    <div class="mini-panel"><canvas id="minimap" width="240" height="170" aria-label="コース上の車の位置"></canvas><span id="questionProgress">算数チャレンジ 0 / 5</span></div>
+    <div class="hud-bottom"><div class="speed-panel"><strong id="speed">0</strong><span>km/h</span><small id="assistLabel">アシスト ON</small></div><div class="boost-panel"><div><span>BOOST ENERGY</span><strong id="energy">0 <small>/ 100</small></strong></div><div class="energy-track"><div id="energyBar"></div><i></i></div><button id="boostBtn" class="hud-action"><kbd>Space</kbd> ブースト <small>−40</small></button></div><div class="item-panel"><div class="item-glyph" id="itemGlyph">◇</div><div><span class="hud-label">ITEM</span><strong id="itemName">アイテムなし</strong><button id="itemBtn" class="hud-action"><kbd>E</kbd> つかう</button></div></div></div>
+    <div class="drive-guide"><span><kbd>←</kbd><kbd>→</kbd> ハンドル</span><span><kbd>↑</kbd> アクセル <kbd>↓</kbd> ブレーキ</span><button id="recoverBtn"><kbd>R</kbd> コースに戻る</button></div>
+  </section>
+  <div id="countdown" class="countdown" hidden><span id="countdownLabel">READY?</span><strong id="countdownNumber">3</strong><small>← → でハンドル操作</small></div>
+  <div id="toast" class="toast" role="status"></div>
+  <section id="overlay" class="overlay" hidden><div id="dialog" class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" tabindex="-1"></div></section>
+  <div id="live" class="sr-only" aria-live="polite"></div>
+</div>
+<script>
+/* Study Racers: deterministic simulation, independent of the browser UI. */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  root.StudyCore = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const DT = 1 / 60, TAU = Math.PI * 2;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const wrap = n => ((n % TAU) + TAU) % TAU;
+  const angle = n => ((n + Math.PI) % TAU + TAU) % TAU - Math.PI;
+  function rng(seed) { let a = seed >>> 0; return () => { a += 0x6D2B79F5; let t = a; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function shuffle(a, random) { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  const segments = [];
+  function line(x, y, h, length) { segments.push({x, y, h, length, kind:'line'}); }
+  function arc(cx, cy, start) { segments.push({cx, cy, start, length:30 * Math.PI, kind:'arc'}); }
+  line(270,60,0,150); arc(420,120,-Math.PI/2); line(480,120,Math.PI/2,180);
+  arc(420,300,0); line(420,360,Math.PI,300); arc(120,300,Math.PI/2);
+  line(60,300,-Math.PI/2,180); arc(120,120,Math.PI); line(120,60,0,150);
+  let L = 0; segments.forEach(s => {s.s=L; L+=s.length;});
+  function at(s, offset=0) {
+    s = ((s % L) + L) % L;
+    const seg = segments.find(p => s < p.s + p.length) || segments[segments.length-1];
+    const t = s - seg.s;
+    let x, y, h;
+    if (seg.kind === 'line') {h=seg.h; x=seg.x+Math.cos(h)*t; y=seg.y+Math.sin(h)*t;}
+    else {const a=seg.start+t/60; x=seg.cx+60*Math.cos(a); y=seg.cy+60*Math.sin(a); h=a+Math.PI/2;}
+    return {x:x-Math.sin(h)*offset,y:y+Math.cos(h)*offset,h:angle(h), curvature:seg.kind==='arc'?1/60:0};
+  }
+  const sampleCount=Math.ceil(L/2), sampleStep=L/sampleCount;
+  const samples=Array.from({length:sampleCount},(_,i)=>({...at(i*sampleStep),s:i*sampleStep}));
+  function project(x,y,previousIndex) {
+    let best={dist2:Infinity};
+    const start=previousIndex===undefined?0:previousIndex-36, end=previousIndex===undefined?sampleCount:previousIndex+37;
+    for(let k=start;k<end;k++) {
+      const i=(k%sampleCount+sampleCount)%sampleCount,a=samples[i],b=samples[(i+1)%sampleCount];
+      const dx=b.x-a.x,dy=b.y-a.y,t=clamp(((x-a.x)*dx+(y-a.y)*dy)/(dx*dx+dy*dy),0,1);
+      const px=a.x+dx*t,py=a.y+dy*t,d=(x-px)**2+(y-py)**2;
+      if(d<best.dist2) best={dist2:d,index:i,s:(i+t)*sampleStep%L,x:px,y:py,h:Math.atan2(dy,dx), lateral:((x-px)*-dy+(y-py)*dx)/Math.hypot(dx,dy)};
+    }
+    return best;
+  }
+  const quizDistances=[.06*L,.52*L,1.06*L,1.52*L,2.06*L];
+  const objects=[{id:'box1',type:'box',s:.30*L,offset:5},{id:'box2',type:'box',s:.80*L,offset:-5},{id:'cone1',type:'cone',s:.33*L,offset:6},{id:'cone2',type:'cone',s:.83*L,offset:-6}].map(o=>({...o,...at(o.s,o.offset)}));
+  const colors=['#ffb83d','#53cbff','#ff789b','#b39bff'];
+  const items=['shield','grip','recovery'];
+  const pace={easy:[.78,.82,.86],normal:[.90,.94,.98],hard:[.96,.99,1]};
+  function validateBank(bank) {
+    if(!Array.isArray(bank)) throw new Error('問題データを読み込めません。');
+    const ids=new Set();
+    for(const q of bank) {
+      if(ids.has(q.id)||q.choices.length!==3||new Set(q.choices.map(c=>c.id)).size!==3||!q.choices.some(c=>c.id===q.correctChoiceId)||!q.explanation||!q.hint) throw new Error('問題データを確認してください: '+q.id);
+      ids.add(q.id);
+    }
+  }
+  function chooseQuestions(bank,config,recent=[]) {
+    validateBank(bank);
+    const random=rng(config.seed),units=shuffle(config.units,random);
+    if(!units.length) throw new Error('単元を1つ以上選んでください。');
+    const selected=[];
+    for(let i=0;i<units.length;i++) {
+      const count=Math.floor(5/units.length)+(i<5%units.length?1:0);
+      let pool=shuffle(bank.filter(q=>q.unit===units[i]&&q.level===config.learning),random);
+      pool.sort((a,b)=>Number(recent.includes(a.id))-Number(recent.includes(b.id)));
+      if(pool.length<count) throw new Error('選んだ単元・難易度の問題が足りません。');
+      selected.push(...pool.slice(0,count));
+    }
+    return shuffle(selected,random).map(q=>({...q,choices:shuffle(q.choices,random)}));
+  }
+  function car(id,s,offset) {
+    const p=at(s,offset),proj=project(p.x,p.y);
+    return {id,x:p.x,y:p.y,px:p.x,py:p.y,h:p.h,v:0,color:colors[id],s:proj.s,idx:proj.index,lateral:offset,absS:s,progress:s,nextCP:0,laps:0,finish:null,
+      energy:0,boost:0,item:null,shield:0,grip:0,ghost:0,offroad:0,stuck:0,reverse:0,offset,desiredOffset:offset,decision:0,laneCooldown:0,controls:{a:0,b:0,h:0},recoveries:0};
+  }
+  class Race {
+    constructor(config,bank,recent=[]) {
+      this.config={units:['fraction','ratio','proportion'],learning:'standard',cpu:'normal',assist:true,seed:1,...config};
+      this.questions=chooseQuestions(bank,this.config,recent);
+      this.cars=[car(0,-16,-4),car(1,-8,-4),car(2,-8,4),car(3,-16,4)];
+      this.state='COUNTDOWN'; this.countdown=3; this.time=0; this.ticks=0; this.quizIndex=0;
+      this.answers=[]; this.usedBoxes=new Set(); this.contacts=new Map(); this.events=[]; this.selected=null;
+      this.hintUsed=false; this.savedState=null; this.assistChanged=false; this.manualIdle=0; this.lastResult=null;
+    }
+    get player() {return this.cars[0];}
+    emit(type,data={}) {this.events.push({type,...data});}
+    drain() {return this.events.splice(0);}
+    uiTick(dt) {
+      if(this.state==='COUNTDOWN'||this.state==='RESUME_COUNTDOWN') {
+        this.countdown-=dt;
+        if(this.countdown<=0) {this.state='RACING';this.emit('race');}
+      }
+    }
+    pause() {
+      if(['RACING','QUIZ','FEEDBACK','COUNTDOWN','RESUME_COUNTDOWN'].includes(this.state)) {this.savedState=this.state;this.state='PAUSED';this.emit('pause');}
+    }
+    resume() {
+      if(this.state!=='PAUSED') return;
+      if(this.savedState==='RACING'||this.savedState==='COUNTDOWN'||this.savedState==='RESUME_COUNTDOWN') {this.state='RESUME_COUNTDOWN';this.countdown=3;}
+      else this.state=this.savedState;
+      this.emit('resume');
+    }
+    setAssist(value) {if(this.config.assist!==value) this.assistChanged=true; this.config.assist=value;}
+    select(id) {if(this.state==='QUIZ'&&this.questions[this.quizIndex].choices.some(c=>c.id===id)) this.selected=id;}
+    hint() {if(this.state==='QUIZ') this.hintUsed=true;}
+    answer(skip=false) {
+      if(this.state!=='QUIZ'||(!skip&&!this.selected)) return false;
+      const q=this.questions[this.quizIndex];
+      const outcome=skip?'skipped':this.selected===q.correctChoiceId?'correct':'incorrect';
+      this.answers.push({slot:this.quizIndex+1,questionId:q.id,questionVersion:q.version,choiceOrder:q.choices.map(c=>c.id),selectedChoiceId:skip?null:this.selected,outcome,hintUsed:this.hintUsed,explanationViewed:false,rewardApplied:false});
+      this.state='FEEDBACK';this.emit('feedback',{outcome});return true;
+    }
+    acknowledge() {
+      if(this.state!=='FEEDBACK') return false;
+      const a=this.answers[this.quizIndex];
+      if(a.rewardApplied) return false;
+      a.explanationViewed=true;a.rewardApplied=true;
+      let gain=a.outcome==='correct'?30:10;
+      let got=null,converted=false;
+      if(a.outcome==='correct'&&(this.quizIndex===1||this.quizIndex===3)) {
+        got=this.quizIndex===1?'shield':'grip';
+        if(this.player.item) {gain+=10;converted=true;} else this.player.item=got;
+      }
+      this.player.energy=clamp(this.player.energy+gain,0,100);
+      this.quizIndex++;this.selected=null;this.hintUsed=false;
+      this.state='RESUME_COUNTDOWN';this.countdown=3;
+      this.emit('reward',{gain,item:got,converted});return true;
+    }
+    boost() {
+      const p=this.player;
+      if(this.state!=='RACING'||p.energy<40||p.boost>0||Math.abs(p.lateral)>10) return false;
+      p.energy-=40;p.boost=2;this.emit('boost');return true;
+    }
+    giveItem(c,item) {
+      if(c.item) {c.energy=clamp(c.energy+10,0,100);return false;}
+      c.item=item;return true;
+    }
+    useItem(c=this.player) {
+      if(this.state!=='RACING'||!c.item) return false;
+      if(c.item==='recovery') {if(Math.abs(c.lateral)<=10)return false;this.recover(c,true);}
+      else if(c.item==='shield') {if(c.shield>0)return false;c.shield=8;}
+      else if(c.item==='grip') {if(c.grip>0)return false;c.grip=5;}
+      const used=c.item;c.item=null;if(c.id===0)this.emit('item',{item:used});return true;
+    }
+    recover(c=this.player,fast=false) {
+      if(this.state!=='RACING'||c.finish!==null) return false;
+      const last=c.nextCP-L/12;
+      let s=last<0?-16:last+2;
+      if(c.id===0&&this.quizIndex<5) s=Math.min(s,quizDistances[this.quizIndex]-3);
+      const p=at(s);c.x=p.x;c.y=p.y;c.px=p.x;c.py=p.y;c.h=p.h;c.v=fast?12:6;
+      const q=project(c.x,c.y);c.idx=q.index;c.s=q.s;c.absS=s;c.progress=s;c.lateral=0;
+      c.ghost=1;c.offroad=0;c.stuck=0;c.reverse=0;c.recoveries++;
+      if(c.id===0)this.emit('recover');return true;
+    }
+    control(c,dt) {
+      c.decision-=dt;c.laneCooldown=Math.max(0,c.laneCooldown-dt);
+      if(c.id!==0&&c.decision<=0) {
+        c.decision=.1;
+        const front=this.cars.find(o=>o!==c&&o.finish===null&&o.absS-c.absS>0&&o.absS-c.absS<15&&Math.abs(o.lateral-c.lateral)<3&&o.v<c.v-1);
+        if(front&&c.laneCooldown<=0) {
+          const candidates=shuffle([-5,0,5],rng(this.config.seed+Math.floor(c.absS/10)+c.id));
+          const free=candidates.find(off=>!this.cars.some(o=>o!==c&&o.finish===null&&o.absS-c.absS<12&&o.absS-c.absS>-8&&Math.abs(o.lateral-off)<3)&&!objects.some(o=>o.type==='cone'&&((o.s-c.s+L)%L)<25&&Math.abs(off-o.offset)<3));
+          if(free!==undefined) {c.desiredOffset=free;c.laneCooldown=1.5;}
+        }
+        const cone=objects.find(o=>o.type==='cone'&&((o.s-c.s+L)%L)<25&&Math.abs(c.desiredOffset-o.offset)<3);
+        if(cone)c.desiredOffset=0;
+      }
+      c.offset+=clamp(c.desiredOffset-c.offset,-3*dt,3*dt);
+      const look=clamp(8+.6*c.v,10,26),target=at(c.s+look,c.id===0?0:c.offset);
+      const alpha=angle(Math.atan2(target.y-c.y,target.x-c.x)-c.h);
+      const omega=(1.8-.8*clamp(c.v/24,0,1))*Math.min(c.v/6,1)*(c.grip>0?1.2:1);
+      const h=clamp((2*c.v*Math.sin(alpha)/look)/Math.max(omega,.1),-1,1);
+      let maxCurve=0;for(let d=0;d<=40;d+=5)maxCurve=Math.max(maxCurve,at(c.s+d).curvature);
+      let targetSpeed=Math.min(c.boost>0?31.2:24,Math.sqrt(7/Math.max(maxCurve,.001)));
+      if(c.id!==0)targetSpeed=Math.min(targetSpeed,24*pace[this.config.cpu][c.id-1]);
+      const front=this.cars.filter(o=>o!==c&&o.finish===null&&o.absS-c.absS>0&&o.absS-c.absS<12&&Math.abs(o.lateral-c.lateral)<3).sort((a,b)=>a.absS-b.absS)[0];
+      if(front&&c.id!==0)targetSpeed=Math.min(targetSpeed,Math.max(4,front.v-1+(front.absS-c.absS-5)*.6));
+      if(Math.abs(alpha)>.8)targetSpeed=Math.min(targetSpeed,10);
+      return {h,a:c.v<targetSpeed+.2?1:0,b:c.v>targetSpeed+.5?clamp((c.v-targetSpeed)/3,0,1):0};
+    }
+    step(input={},dt=DT) {
+      if(this.state!=='RACING')return;
+      const nextTime=this.time+dt;
+      for(const c of this.cars) {
+        if(c.finish!==null)continue;
+        c.px=c.x;c.py=c.y;
+        for(const key of ['boost','shield','grip','ghost'])c[key]=Math.max(0,c[key]-dt);
+        let ctrl=this.control(c,dt);
+        if(c.id===0) {
+          const manual=clamp(input.h||0,-1,1);
+          this.manualIdle=manual?0:this.manualIdle+dt;
+          if(this.config.assist) {
+            if(manual)ctrl.h=clamp(manual+(Math.abs(c.lateral)>7?clamp(ctrl.h,-.35,.35):0),-1,1);
+            else if(this.manualIdle<.2)ctrl.h=0;
+            if(input.b){ctrl.a=0;ctrl.b=1;}
+          } else ctrl={a:input.a?1:0,b:input.b?1:0,h:manual};
+        } else {
+          if(c.item==='shield'&&objects.some(o=>o.type==='cone'&&((o.s-c.s+L)%L)<20))this.useItem(c);
+          if(c.item==='grip'&&at(c.s+30).curvature)this.useItem(c);
+          if(c.item==='recovery'&&Math.abs(c.lateral)>10)this.useItem(c);
+        }
+        if(ctrl.b>0)ctrl.a=0;c.controls=ctrl;
+        const r=clamp(c.v/24,0,1),off=Math.abs(c.lateral)>10;
+        const drag=2*Math.abs(ctrl.h)*r*r*(c.grip>0?.4:1);
+        c.v=Math.max(0,c.v+((c.boost>0?9:6)*ctrl.a-12*ctrl.b-1.2-drag-(off&&c.v>9?10:0))*dt);
+        const cap=off?9:c.boost>0?31.2:24;
+        if(c.v>cap)c.v=Math.max(cap,c.v-8*dt);
+        const omega=(1.8-.8*r)*Math.min(c.v/6,1)*(c.grip>0?1.2:1);
+        c.h=angle(c.h+ctrl.h*omega*dt);c.x+=Math.cos(c.h)*c.v*dt;c.y+=Math.sin(c.h)*c.v*dt;
+      }
+      this.collisions(nextTime);
+      let triggerQuiz=false,finished=false;
+      for(const c of this.cars) {
+        if(c.finish!==null)continue;
+        const p=project(c.x,c.y,c.idx);let delta=p.s-c.s;
+        if(delta>L/2)delta-=L;if(delta<-L/2)delta+=L;
+        const before=c.absS;c.absS+=delta;c.s=p.s;c.idx=p.index;c.lateral=p.lateral;
+        const forward=Math.cos(angle(c.h-p.h))>0;
+        const crossing=(absolute)=>{
+          // The sampled projection and analytic gate can differ slightly on an arc.
+          // Use the swept gate plane for crossing, and progress only to select its lap.
+          if(!(Math.abs(c.absS-absolute)<3&&forward))return false;
+          const gate=at(absolute),tx=Math.cos(gate.h),ty=Math.sin(gate.h);
+          const a=(c.px-gate.x)*tx+(c.py-gate.y)*ty,b=(c.x-gate.x)*tx+(c.y-gate.y)*ty;
+          if(!(a<=0&&b>=0&&b>a))return false;
+          const f=-a/(b-a),x=c.px+(c.x-c.px)*f,y=c.py+(c.y-c.py)*f;
+          return Math.abs((x-gate.x)*-ty+(y-gate.y)*tx)<=13;
+        };
+        if(crossing(c.nextCP)) {
+          const crossed=c.nextCP;c.nextCP+=L/12;
+          if(crossed>L-.01) c.laps=Math.min(3,Math.floor((crossed+.001)/L));
+          if(c.laps===3) {
+            if(c.id===0&&this.quizIndex<5){this.recover(c);continue;}
+            const fraction=clamp((3*L-before)/Math.max(delta,.00001),0,1);
+            c.finish=this.time+dt*fraction;c.progress=3*L;c.v=0;
+            if(c.id===0)finished=true;
+          }
+        }
+        if(c.finish===null)c.progress=clamp(c.absS,c.nextCP-L/12,c.nextCP);
+        if(c.id===0&&this.quizIndex<5&&c.nextCP>Math.floor(quizDistances[this.quizIndex]/(L/12))*(L/12)&&crossing(quizDistances[this.quizIndex]))triggerQuiz=true;
+        const out=Math.abs(c.lateral)>13;
+        c.offroad=out?c.offroad+dt:0;c.stuck=c.v<1&&c.controls.a>.5?c.stuck+dt:0;c.reverse=!forward&&c.v>1?c.reverse+dt:0;
+        if(c.offroad>=2||c.stuck>=3||c.reverse>=3)this.recover(c);
+        for(const o of objects)if(o.type==='box'&&Math.hypot(c.x-o.x,c.y-o.y)<3.4) {
+          const key=c.id+':'+c.laps+':'+o.id;
+          if(!this.usedBoxes.has(key)) {
+            this.usedBoxes.add(key);
+            const random=rng(this.config.seed+c.id*333+c.laps*777+objects.indexOf(o)*17),item=items[Math.floor(random()*3)];
+            const acquired=this.giveItem(c,item);if(c.id===0)this.emit('pickup',{item,converted:!acquired});
+          }
+        }
+      }
+      this.time=nextTime;this.ticks++;
+      if(finished) {this.state='RESULT';this.lastResult=this.result();this.emit('finish');}
+      else if(triggerQuiz) {this.state='QUIZ';this.selected=null;this.hintUsed=false;this.emit('quiz');}
+    }
+    collisions(now) {
+      const allow=(key,delay)=>{if((this.contacts.get(key)||-100)+delay>now)return false;this.contacts.set(key,now);return true;};
+      for(let i=0;i<4;i++) {
+        const c=this.cars[i];if(c.finish!==null)continue;
+        for(let j=i+1;j<4;j++) {
+          const o=this.cars[j];if(o.finish!==null||c.ghost>0||o.ghost>0)continue;
+          const dx=o.x-c.x,dy=o.y-c.y,d=Math.hypot(dx,dy);
+          if(d<2.8) {
+            const nx=d>0?dx/d:1,ny=d>0?dy/d:0,push=(2.8-d)/2;
+            c.x-=nx*push;c.y-=ny*push;o.x+=nx*push;o.y+=ny*push;
+            if(allow('pair'+i+j,.5)){c.v*=.9;o.v*=.9;}
+          }
+        }
+        for(const o of objects)if(o.type==='cone') {
+          const dx=c.x-o.x,dy=c.y-o.y,d=Math.hypot(dx,dy);
+          if(d<2.2) {
+            const nx=d>0?dx/d:1,ny=d>0?dy/d:0;c.x=o.x+nx*2.2;c.y=o.y+ny*2.2;
+            if(allow('cone'+c.id+o.id,1)){if(c.shield>0)c.shield=0;else c.v*=.75;}
+          }
+        }
+      }
+    }
+    ranking() {return [...this.cars].sort((a,b)=>a.finish!==null&&b.finish!==null?a.finish-b.finish||a.id-b.id:a.finish!==null?-1:b.finish!==null?1:b.progress-a.progress||a.id-b.id);}
+    result(completed=true) {return {schemaVersion:1,raceId:'race-'+this.config.seed,config:{...this.config},completed,playerRank:completed?this.ranking().findIndex(c=>c.id===0)+1:null,raceTime:this.time,answers:this.answers.map(a=>({...a})),assistChanged:this.assistChanged,finishers:this.ranking().map(c=>({id:c.id,time:c.finish}))};}
+  }
+  return {Race,DT,L,at,project,samples,objects,quizDistances,clamp,angle,rng,shuffle,validateBank,chooseQuestions,colors};
+});
+
+</script><script>
+(function (root, factory) {
+  const questions = factory();
+  if (typeof module === 'object' && module.exports) module.exports = questions;
+  root.StudyQuestions = questions;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  // Original questions. A slash represents a fraction; answers retain stable IDs.
+  const bank = [];
+  function add(unit, level, prompt, answer, distractors, hint, explanation) {
+    const number = bank.filter(q => q.unit === unit && q.level === level).length + 1;
+    const values = [answer, ...distractors];
+    const shift = (number - 1) % 3;
+    const choices = values.map((_, i) => ({ id: String.fromCharCode(97 + i), text: values[(i + shift) % 3] }));
+    bank.push({ id: `${unit}-${level}-${number}`, version: 1, grade: 6, unit, level,
+      prompt, choices, correctChoiceId: choices.find(c => c.text === answer).id,
+      hint, explanation, tags: [unit, level] });
+  }
+
+  add('fraction','support','1/2 × 2 はいくつですか。','1',['1/4','2'],
+    '1/2 が2つあります。分子に2をかけます。','1/2 × 2 ＝ 2/2 ＝ 1 です。');
+  add('fraction','support','1/3 × 3 はいくつですか。','1',['1/9','3'],
+    '1/3 が3つあります。','1/3 × 3 ＝ 3/3 ＝ 1 です。');
+  add('fraction','support','2/5 × 2 はいくつですか。','4/5',['2/10','4/10'],
+    '分母はそのまま、分子に2をかけます。','2/5 × 2 ＝ (2 × 2)/5 ＝ 4/5 です。');
+  add('fraction','support','3/4 ÷ 3 はいくつですか。','1/4',['9/4','3/7'],
+    '3/4 を同じ大きさの3つに分けます。','3/4 ÷ 3 ＝ 3/12 ＝ 1/4 です。');
+  add('fraction','support','2/3 ÷ 2 はいくつですか。','1/3',['4/3','2/5'],
+    '2/3 の半分を考えましょう。','2/3 ÷ 2 ＝ 2/6 ＝ 1/3 です。');
+
+  add('fraction','standard','3/4 × 2/3 はいくつですか。','1/2',['5/7','3/2'],
+    '分子どうし、分母どうしをかけて、約分します。','3/4 × 2/3 ＝ 6/12 ＝ 1/2 です。');
+  add('fraction','standard','2/5 ÷ 3/4 はいくつですか。','8/15',['3/10','15/8'],
+    'わる数の分子と分母を入れかえて、かけます。','2/5 ÷ 3/4 ＝ 2/5 × 4/3 ＝ 8/15 です。');
+  add('fraction','standard','5/6 × 3/10 はいくつですか。','1/4',['1/2','3/4'],
+    '先に5と10、3と6を約分してもよいです。','5/6 × 3/10 ＝ 15/60 ＝ 1/4 です。');
+  add('fraction','standard','7/8 ÷ 7/4 はいくつですか。','1/2',['2','49/32'],
+    '7/4 の逆数は4/7です。','7/8 ÷ 7/4 ＝ 7/8 × 4/7 ＝ 28/56 ＝ 1/2 です。');
+  add('fraction','standard','4/9 × 3/2 はいくつですか。','2/3',['4/3','7/11'],
+    'かけ算をしてから約分するか、先に約分します。','4/9 × 3/2 ＝ 12/18 ＝ 2/3 です。');
+
+  add('fraction','challenge','3 mのリボンから、3/4 mずつ3本切りました。残りは何mですか。','3/4 m',['9/4 m','1/4 m'],
+    'まず切った長さの合計を求め、3 mから引きます。','切った長さは3/4 × 3 ＝ 9/4 m。残りは3 − 9/4 ＝ 3/4 mです。');
+  add('fraction','challenge','2/3 Lのジュースのうち、全体の3/4を飲みました。残りは何Lですか。','1/6 L',['1/2 L','1/4 L'],
+    '残りは全体の1/4です。2/3 Lの1/4を求めます。','残りの割合は1 − 3/4 ＝ 1/4。2/3 × 1/4 ＝ 1/6 Lです。');
+  add('fraction','challenge','3/4 Lと1/2 Lのジュースを合わせます。1杯1/4 Lずつ分けると、何杯分ですか。','5杯分',['3杯分','4杯分'],
+    '合わせた量を求めてから、1/4でわります。','3/4 ＋ 1/2 ＝ 5/4 L。5/4 ÷ 1/4 ＝ 5杯分です。');
+  add('fraction','challenge','ケーキ3/4個を3人で同じ量ずつ分けました。そのうち2人分を合わせると、何個分ですか。','1/2個分',['1/4個分','3/2個分'],
+    '1人分は3/4 ÷ 3。その2人分を求めます。','1人分は3/4 ÷ 3 ＝ 1/4個分。2人分は1/4 × 2 ＝ 1/2個分です。');
+  add('fraction','challenge','2 kmのコースで、2/3 kmずつ2回走りました。ゴールまで残り何kmですか。','2/3 km',['4/3 km','1/3 km'],
+    '走った合計を求めてから、2 kmから引きます。','走った距離は2/3 × 2 ＝ 4/3 km。残りは2 − 4/3 ＝ 2/3 kmです。');
+
+  add('ratio','support','赤い玉：青い玉＝1：2で、全部で9個です。赤い玉は何個ですか。','3個',['6個','9個'],
+    '比の合計は1 ＋ 2 ＝ 3。9個を3つ分に分けます。','比の1つ分は9 ÷ 3 ＝ 3個。赤は1つ分なので3個です。');
+  add('ratio','support','赤い玉：青い玉＝2：3で、全部で10個です。赤い玉は何個ですか。','4個',['2個','6個'],
+    '比の合計は5です。赤はそのうち2つ分です。','1つ分は10 ÷ (2 ＋ 3) ＝ 2個。赤は2 × 2 ＝ 4個です。');
+  add('ratio','support','赤い玉：青い玉＝2：1です。赤が6個のとき、青は何個ですか。','3個',['6個','12個'],
+    '赤の2つ分が6個です。1つ分を求めます。','比の1つ分は6 ÷ 2 ＝ 3個。青は1つ分なので3個です。');
+  add('ratio','support','2：3と等しい比にします。4：□ の□に入る数はどれですか。','6',['5','8'],
+    '2から4は2倍です。3も同じ2倍にします。','比の両方を2倍すると、2：3 ＝ 4：6です。');
+  add('ratio','support','赤い玉：青い玉＝3：2で、全部で15個です。青い玉は何個ですか。','6個',['9個','5個'],
+    '比の合計は5です。青は2つ分です。','1つ分は15 ÷ 5 ＝ 3個。青は3 × 2 ＝ 6個です。');
+
+  add('ratio','standard','赤い花：白い花＝3：5で、全部で32本です。赤い花は何本ですか。','12本',['20本','8本'],
+    '比の合計は8。赤は3つ分です。','1つ分は32 ÷ (3 ＋ 5) ＝ 4本。赤は4 × 3 ＝ 12本です。');
+  add('ratio','standard','赤い旗：青い旗＝4：3です。赤が20本のとき、青は何本ですか。','15本',['12本','25本'],
+    '20 ÷ 4で、比の1つ分を求めます。','比の1つ分は20 ÷ 4 ＝ 5本。青は5 × 3 ＝ 15本です。');
+  add('ratio','standard','赤い花：白い花＝2：7です。白が28本のとき、赤は何本ですか。','8本',['14本','4本'],
+    '白の7つ分が28本です。','比の1つ分は28 ÷ 7 ＝ 4本。赤は4 × 2 ＝ 8本です。');
+  add('ratio','standard','赤い玉：青い玉＝5：3です。赤は青より8個多いです。赤は何個ですか。','20個',['40個','12個'],
+    '差の8個は、比の5 − 3 ＝ 2つ分です。','比の1つ分は8 ÷ 2 ＝ 4個。赤は4 × 5 ＝ 20個です。');
+  add('ratio','standard','6：9を、できるだけ小さい整数の比にすると、どれですか。','2：3',['3：2','1：3'],
+    '6と9を、両方とも同じ数でわります。','6と9をどちらも3でわると、6：9 ＝ 2：3です。');
+
+  add('ratio','challenge','赤い玉：青い玉＝2：3で、全部で40個です。赤を4個増やした後の赤：青を、最も小さい整数の比で表すと？','5：6',['2：3','3：4'],
+    '最初の赤と青の個数を求めてから、赤だけ4個増やします。','1つ分は40 ÷ 5 ＝ 8個。赤16個、青24個。赤を4個増やすと20：24 ＝ 5：6です。');
+  add('ratio','challenge','赤チーム：青チームの人数は3：2で、全部で35人です。青に7人加わると、赤：青はどれですか。','1：1',['3：2','2：3'],
+    '最初の人数を求めます。青だけ7人増えます。','1つ分は35 ÷ 5 ＝ 7人。赤21人、青14人です。青が21人になるので21：21 ＝ 1：1です。');
+  add('ratio','challenge','シロップ：水＝1：4の飲み物が250 mLあります。同じ濃さのまま500 mLに増やします。追加する水は何mLですか。','200 mL',['400 mL','50 mL'],
+    '増やす飲み物は250 mL。そのうち水は全体の4/5です。','追加する量は500 − 250 ＝ 250 mL。水は250 ÷ 5 × 4 ＝ 200 mLです。シロップも50 mL加えます。');
+  add('ratio','challenge','砂糖：小麦粉＝2：5の材料を全部で210 g使います。同じ割合で2回作ると、小麦粉は全部で何gですか。','300 g',['150 g','420 g'],
+    '1回分の小麦粉を求めてから、2倍します。','1回分の小麦粉は210 ÷ 7 × 5 ＝ 150 g。2回分は150 × 2 ＝ 300 gです。');
+  add('ratio','challenge','赤：青：黄の玉の個数は2：3：4で、全部で45個です。赤と黄を合わせると何個ですか。','30個',['25個','35個'],
+    '比の合計は9。赤と黄の合計は6つ分です。','1つ分は45 ÷ (2 ＋ 3 ＋ 4) ＝ 5個。赤と黄は5 × (2 ＋ 4) ＝ 30個です。');
+
+  add('proportion','support','1個50円の消しゴムを2個買います。代金は何円ですか。','100円',['50円','150円'],
+    '1個の値段に個数をかけます。','50 × 2 ＝ 100円です。個数が2倍になると、代金も2倍になります。');
+  add('proportion','support','1分間に20 mの一定の速さで進みます。3分間では何m進みますか。','60 m',['23 m','40 m'],
+    '1分間の距離を3倍します。','20 × 3 ＝ 60 mです。時間と進む距離は比例しています。');
+  add('proportion','support','同じノートを2冊買うと100円です。4冊では何円ですか。','200円',['150円','400円'],
+    '冊数は2冊から4冊で2倍です。','冊数が2倍なので代金も2倍。100 × 2 ＝ 200円です。');
+  add('proportion','support','1分間に3 Lずつ水を入れます。4分間に入る水は何Lですか。','12 L',['7 L','9 L'],
+    '1分間の3 Lが4つ分です。','3 × 4 ＝ 12 Lです。');
+  add('proportion','support','1個の重さが5 gの同じクリップがあります。6個の重さは何gですか。','30 g',['11 g','25 g'],
+    '1個の重さに個数をかけます。','5 × 6 ＝ 30 gです。');
+
+  add('proportion','standard','一定の速さで4分間に240 m進みます。7分間では何m進みますか。','420 m',['280 m','960 m'],
+    'まず1分間に進む距離を求めます。','1分間に240 ÷ 4 ＝ 60 m。7分間では60 × 7 ＝ 420 mです。');
+  add('proportion','standard','同じノート3冊の代金が360円です。5冊の代金は何円ですか。','600円',['480円','1800円'],
+    '1冊の値段を求めて、5倍します。','1冊は360 ÷ 3 ＝ 120円。5冊は120 × 5 ＝ 600円です。');
+  add('proportion','standard','毎分同じ量の水を入れます。6分間で18 L入りました。10分間では何L入りますか。','30 L',['22 L','60 L'],
+    '1分間に入る量は18 ÷ 6です。','1分間に18 ÷ 6 ＝ 3 L。10分間では3 × 10 ＝ 30 Lです。');
+  add('proportion','standard','同じ種類の紙12枚の重さは48 gです。20枚の重さは何gですか。','80 g',['56 g','96 g'],
+    '1枚の重さを求めましょう。','1枚は48 ÷ 12 ＝ 4 g。20枚は4 × 20 ＝ 80 gです。');
+  add('proportion','standard','yはxに比例し、x＝4のときy＝28です。x＝9のときyはいくつですか。','63',['33','252'],
+    'y ÷ xで比例の決まった数を求めます。','決まった数は28 ÷ 4 ＝ 7。y ＝ 7 × xなので、x＝9ではy ＝ 63です。');
+
+  add('proportion','challenge','同じペン4本の代金が320円です。7本買って1000円を出すと、おつりは何円ですか。','440円',['560円','680円'],
+    '1本の値段、7本の代金、おつりの順に求めます。','1本は320 ÷ 4 ＝ 80円。7本は80 × 7 ＝ 560円。おつりは1000 − 560 ＝ 440円です。');
+  add('proportion','challenge','一定の速さで5分間に350 m歩きます。全部で1 km歩くとき、8分間歩いた後の残りは何mですか。','440 m',['560 m','650 m'],
+    '1 kmは1000 m。8分間で進む距離を求めて引きます。','1分間に350 ÷ 5 ＝ 70 m。8分間で560 m。残りは1000 − 560 ＝ 440 mです。');
+  add('proportion','challenge','一定の割合で水を入れると、3分間で12 L入ります。最初に5 L入っている容器へ、さらに6分間水を入れると全部で何Lですか。','29 L',['24 L','17 L'],
+    '追加する水量は時間に比例します。最初の5 Lも足します。','1分間に12 ÷ 3 ＝ 4 L。6分間で24 Lを追加します。全部で5 ＋ 24 ＝ 29 Lです。');
+  add('proportion','challenge','同じ種類の紙20枚の重さは80 gです。40 gの箱に、この紙を30枚入れると全体の重さは何gですか。','160 g',['120 g','200 g'],
+    '紙1枚の重さから30枚分を求め、箱の重さを足します。','紙1枚は80 ÷ 20 ＝ 4 g。30枚は120 g。箱も合わせると120 ＋ 40 ＝ 160 gです。');
+  add('proportion','challenge','yはxに比例し、x＝3のときy＝15です。x＝4からx＝9に増えると、yはどれだけ増えますか。','25',['45','20'],
+    '比例の決まった数を求め、xの増えた分にかけます。','決まった数は15 ÷ 3 ＝ 5。xは9 − 4 ＝ 5増えるので、yは5 × 5 ＝ 25増えます。');
+
+  return bank;
+});
+
+</script><script>
+(() => {
+  'use strict';
+  const C=StudyCore, $=id=>document.getElementById(id), canvas=$('world'),ctx=canvas.getContext('2d');
+  const units={fraction:'分数の乗除',ratio:'比',proportion:'比例'},levels={support:'サポート',standard:'標準',challenge:'チャレンジ'},cpus={easy:'やさしい',normal:'ふつう',hard:'つよい'};
+  const itemNames={shield:'シールド',grip:'ハイグリップ',recovery:'リカバリー'},glyphs={shield:'⬡',grip:'≋',recovery:'↺'};
+  const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const math=s=>escape(s).replace(/(\d+)\/(\d+)/g,(_,n,d)=>`<span class="fraction" role="math" aria-label="${d}分の${n}"><span aria-hidden="true">${n}</span><span aria-hidden="true">${d}</span></span>`);
+  function supportVisual(q){
+    if(q.level!=='support')return '';
+    if(q.unit==='fraction'){
+      const f=q.prompt.match(/(\d+)\/(\d+)/);if(!f)return '';
+      const n=Number(f[1]),d=Number(f[2]);
+      return `<div class="support-visual" role="img" aria-label="最初の分数 ${d}分の${n}。全体を${d}等分したうちの${n}つ分"><small>はじめの分数を見てみよう</small><div class="fraction-bar">${Array.from({length:d},(_,i)=>`<span class="${i<n?'filled':''}"></span>`).join('')}</div><small>全体を${d}等分したうちの${n}つ分</small></div>`;
+    }
+    if(q.unit==='ratio'){
+      const pair=q.prompt.match(/(\d+)：(\d+)/);if(!pair)return '';
+      return `<div class="support-visual"><small>比は「いくつ分」の組み合わせ</small><div class="ratio-row"><b>${pair[1]}</b>${Array.from({length:Number(pair[1])},()=>'<span class="ratio-block warm"></span>').join('')}</div><div class="ratio-row"><b>${pair[2]}</b>${Array.from({length:Number(pair[2])},()=>'<span class="ratio-block cool"></span>').join('')}</div><small>同じ大きさの1つ分をもとに考えよう</small></div>`;
+    }
+    const tables={
+      'proportion-support-1':[['個数','1個','2個'],['代金','50円','？円']],
+      'proportion-support-2':[['時間','1分','3分'],['距離','20 m','？m']],
+      'proportion-support-3':[['冊数','2冊','4冊'],['代金','100円','？円']],
+      'proportion-support-4':[['時間','1分','4分'],['水の量','3 L','？L']],
+      'proportion-support-5':[['個数','1個','6個'],['重さ','5 g','？g']]
+    },rows=tables[q.id];
+    return rows?`<div class="support-visual"><small>2つの量を表で見てみよう</small><table class="support-table"><tbody>${rows.map(row=>`<tr><th scope="row">${row[0]}</th><td>${row[1]}</td><td>${row[2]}</td></tr>`).join('')}</tbody></table></div>`:'';
+  }
+  const timeText=t=>{const m=Math.floor(t/60),s=Math.floor(t%60),cs=Math.floor(t*100)%100;return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;};
+  let race=null,keys={},lastFrame=performance.now(),accumulator=0,menuTime=0,cam={x:270,y:60},width=1280,height=720,dpr=1,modalKind=null,returnFocus=null,reviewIndex=0,reviewChoice=null,reviewAnswered=false,toastTimer=0,audio=null,sound=true,large=false,reduced=false,lastCount=-1,savedRace=null,storageOk=true;
+  const STORE='study-racers-v1';
+  let saved={settings:{},results:[]};
+  try {const data=JSON.parse(localStorage.getItem(STORE)||'null');if(data&&data.version===1){saved.settings=data.settings||{};saved.results=Array.isArray(data.results)?data.results.slice(-20):[];}}catch(e){storageOk=false;}
+  function persist(){try{localStorage.setItem(STORE,JSON.stringify({version:1,...saved}));storageOk=true;}catch(e){storageOk=false;}return storageOk;}
+  function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3000);}
+  function beep(freq=500,duration=.12){if(!sound)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(.045,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration);}catch(e){/* Sound is optional. */}}
+  function applyDisplay(){document.body.classList.toggle('large-text',large);document.body.classList.toggle('reduced',reduced);$('soundBtn').textContent=sound?'音 ON':'音 OFF';$('soundBtn').setAttribute('aria-pressed',String(sound));}
+  function restoreSettings(){const s=saved.settings;if(s.learning&&levels[s.learning])$('learning').value=s.learning;if(s.cpu&&cpus[s.cpu])$('cpu').value=s.cpu;if(typeof s.assist==='boolean')$('assist').checked=s.assist;if(Array.isArray(s.units)&&s.units.length)document.querySelectorAll('[name=unit]').forEach(el=>el.checked=s.units.includes(el.value));sound=s.sound!==false;large=!!s.large;reduced=!!s.reduced;$('largeText').checked=large;$('reduced').checked=reduced;applyDisplay();}
+  restoreSettings();
+  function settings(){return {units:[...document.querySelectorAll('[name=unit]:checked')].map(el=>el.value),learning:$('learning').value,cpu:$('cpu').value,assist:$('assist').checked,sound,large:$('largeText').checked,reduced:$('reduced').checked};}
+  function saveSettings(){saved.settings=settings();persist();}
+  function showDialog(html,kind){returnFocus=document.activeElement;$('dialog').innerHTML=html;$('overlay').hidden=false;modalKind=kind;keys={};requestAnimationFrame(()=>$('dialog').focus());}
+  function closeDialog(){$('overlay').hidden=true;modalKind=null;keys={};if(returnFocus&&document.contains(returnFocus))returnFocus.focus();}
+  function syncState(){
+    const running=!!race;
+    $('menu').hidden=running;$('hud').hidden=!running;$('pauseBtn').hidden=!running||['RESULT','REVIEW'].includes(race?.state);
+    document.body.classList.toggle('playing',running);
+    const counting=running&&['COUNTDOWN','RESUME_COUNTDOWN'].includes(race.state);
+    $('countdown').hidden=!counting;
+    if(counting){$('countdownLabel').textContent=race.state==='COUNTDOWN'?'READY?':'レースにもどるよ';}
+  }
+  function start(config){
+    try{const recent=saved.results.at(-1)?.answers?.map(a=>a.questionId)||[];race=new C.Race({...config,seed:Math.floor(Math.random()*0x7fffffff)},StudyQuestions,recent);}catch(e){$('setupError').textContent=e.message;return;}
+    large=config.large;reduced=config.reduced;applyDisplay();savedRace=null;keys={};accumulator=0;cam={x:race.player.x,y:race.player.y};lastCount=-1;closeDialog();syncState();beep(450);
+    $('live').textContent='3周のレースをはじめます。あなたは黄色の車です。';
+  }
+  $('setupForm').addEventListener('submit',e=>{e.preventDefault();const config=settings();if(!config.units.length){$('setupError').textContent='学ぶ単元を1つ以上選んでください。';return;}$('setupError').textContent='';saveSettings();start(config);});
+  function toMenu(){race=null;keys={};accumulator=0;closeDialog();syncState();$('setupTitle').scrollIntoView({block:'nearest'});}
+  function pause(){if(!race)return;race.pause();handleEvents();}
+  function pauseView(){showDialog(`<div class="eyebrow">PIT STOP</div><h2 id="dialogTitle">ひとやすみ</h2><p>みんなの車も止まっています。<br>準備ができたら、レースにもどろう。</p><div class="pause-settings"><label><input id="pauseAssist" type="checkbox" ${race.config.assist?'checked':''}> 運転アシスト</label><label><input id="pauseLarge" type="checkbox" ${large?'checked':''}> 大きい文字</label><label><input id="pauseReduced" type="checkbox" ${reduced?'checked':''}> 動きを少なく</label></div><div class="dialog-footer"><button class="secondary" id="pauseRecover">コースに戻る</button><button class="secondary" id="quitBtn">レースをやめる</button><button class="primary" id="resumeBtn">つづける</button></div>`,'pause');
+    $('pauseAssist').onchange=e=>{race.setAssist(e.target.checked);$('assist').checked=e.target.checked;saveSettings();};
+    $('pauseLarge').onchange=e=>{large=e.target.checked;$('largeText').checked=large;applyDisplay();saveSettings();};
+    $('pauseReduced').onchange=e=>{reduced=e.target.checked;$('reduced').checked=reduced;applyDisplay();saveSettings();};
+    $('pauseRecover').disabled=race.savedState!=='RACING';
+    $('pauseRecover').onclick=()=>{race.state='RACING';race.recover();race.state='PAUSED';resume();};
+    $('resumeBtn').onclick=resume;$('quitBtn').onclick=confirmQuit;
+  }
+  function resume(){closeDialog();race.resume();handleEvents();syncState();if(race.state==='QUIZ')quizView();if(race.state==='FEEDBACK')feedbackView();}
+  function confirmQuit(){showDialog(`<div class="eyebrow">レースの中断</div><h2 id="dialogTitle">このレースをやめますか？</h2><p>途中からの再開はできません。ここまで取り組んだ問題は「中断」として端末の記録に残ります。</p><div class="dialog-footer"><button class="secondary" id="cancelQuit">レースにもどる</button><button class="primary" id="confirmQuit">やめる</button></div>`,'quit');$('cancelQuit').onclick=pauseView;$('confirmQuit').onclick=()=>{storeResult(false);toMenu();};}
+  $('pauseBtn').onclick=()=>{if(race?.state==='PAUSED')resume();else pause();};
+  $('brand').onclick=e=>{e.preventDefault();if(race&&!['RESULT','REVIEW'].includes(race.state)){pause();confirmQuit();}else toMenu();};
+  $('soundBtn').onclick=()=>{sound=!sound;applyDisplay();saveSettings();if(sound)beep();};
+  $('largeText').onchange=e=>{large=e.target.checked;applyDisplay();saveSettings();};$('reduced').onchange=e=>{reduced=e.target.checked;applyDisplay();saveSettings();};
+  function help(){const wasRace=!!race&&!['RESULT','REVIEW'].includes(race.state);if(wasRace){race.pause();race.drain();}
+    showDialog(`<div class="eyebrow">HOW TO PLAY</div><h2 id="dialogTitle">算数でチャージ、走りでチャレンジ</h2><div class="help-grid"><div><strong>車をうごかす</strong><kbd>←</kbd> <kbd>→</kbd> ハンドル<br><kbd>↑</kbd> アクセル / <kbd>↓</kbd> ブレーキ<br>W・A・S・Dでも操作できます。</div><div><strong>とっておきをつかう</strong><kbd>Space</kbd> ブースト（40必要）<br><kbd>E</kbd> アイテム<br><kbd>R</kbd> コースに戻る / <kbd>Esc</kbd> 停止</div><div><strong>算数チャレンジは5問</strong>3択から選んで「この答えにする」。<br>正解で＋30、解説の確認で＋10。<br>第2・第4問の正解でアイテムも！</div><div><strong>アシストで安心</strong>アクセルとハンドルをお手伝い。<br>左右キーで自分でも操作できます。<br>考える間は全車が止まります。</div></div><ul class="help-list"><li>問題は時間制限なし。ヒントも使えます。</li><li>黄色の車があなた。CPU3台と3周を走ります。</li><li>アイテムは1つまで。いっぱいなら新しい分を＋10に変換。</li><li>学校などの共有PCでは、記録は「この端末」の全員分になります。</li></ul><p class="small-info">このゲームはPCのキーボード向けです。タッチ操作の運転は未対応です。</p><div class="dialog-footer"><button class="primary" id="closeHelp">${wasRace?'レースにもどる':'わかった！'}</button></div>`,'help');$('closeHelp').onclick=()=>{if(wasRace)resume();else{closeDialog();if(race?.state==='RESULT')resultView();else if(race?.state==='REVIEW')reviewView();}};syncState();
+  }
+  $('helpBtn').onclick=help;
+  function quizView(){const q=race.questions[race.quizIndex];showDialog(`<div class="quiz-topline"><div class="eyebrow">算数チャレンジ ${race.quizIndex+1} / 5</div><span class="pill">${units[q.unit]} · ${levels[q.level]}</span></div><div class="quiz-progress">${[0,1,2,3,4].map(i=>`<span class="${i<race.quizIndex?'done':i===race.quizIndex?'current':''}"></span>`).join('')}</div><h2 class="sr-only" id="dialogTitle">算数チャレンジ ${race.quizIndex+1}</h2><div class="question-prompt">${math(q.prompt)}</div>${supportVisual(q)}<div class="choices" role="group" aria-label="答えを選ぶ">${q.choices.map((choice,i)=>`<button class="choice ${race.selected===choice.id?'selected':''}" data-choice="${choice.id}" aria-pressed="${race.selected===choice.id}"><small>${i+1}</small><span>${math(choice.text)}</span></button>`).join('')}</div><div id="hintBox" class="hint-box" ${race.hintUsed?'':'hidden'}>${math(q.hint)}</div><div class="quiz-actions"><div><button class="secondary" id="hintBtn">ヒント</button> <button class="subtle" id="skipBtn">わからないので解説を見る</button></div><button class="primary" id="answerBtn" ${race.selected?'':'disabled'}>この答えにする</button></div><p class="small-info">全員の車が止まっています。ゆっくり考えてね。キー 1・2・3 でも選べます。</p>`,'quiz');
+    document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>selectChoice(b.dataset.choice));$('hintBtn').onclick=()=>{race.hint();$('hintBox').hidden=false;};$('answerBtn').onclick=()=>{race.answer();handleEvents();};$('skipBtn').onclick=()=>{race.answer(true);handleEvents();};
+  }
+  function selectChoice(id){race.select(id);document.querySelectorAll('[data-choice]').forEach(b=>{b.classList.toggle('selected',b.dataset.choice===id);b.setAttribute('aria-pressed',String(b.dataset.choice===id));});$('answerBtn').disabled=!race.selected;}
+  function feedbackView(){const q=race.questions[race.quizIndex],a=race.answers[race.quizIndex],correct=a.outcome==='correct';const rewardItem=correct&&(race.quizIndex===1||race.quizIndex===3)?itemNames[race.quizIndex===1?'shield':'grip']:null;
+    showDialog(`<div class="eyebrow">算数チャレンジ ${race.quizIndex+1} / 5</div><h2 id="dialogTitle" class="feedback-title ${correct?'':'wrong'}">${correct?'正解！ エネルギーチャージ':'いっしょに答えを確かめよう'}</h2><div class="question-prompt">${math(q.prompt)}</div><div class="choices">${q.choices.map((ch,i)=>`<div class="choice ${ch.id===q.correctChoiceId?'correct':ch.id===a.selectedChoiceId?'incorrect':''}"><small>${ch.id===q.correctChoiceId?'正解':ch.id===a.selectedChoiceId?'選んだ答え':i+1}</small><span>${math(ch.text)}</span></div>`).join('')}</div><div class="explanation">${math(q.explanation)}</div><span class="reward-tag">ϟ エネルギー ＋${correct?30:10}${rewardItem?` · ${rewardItem}${race.player.item?'（所持中のため＋10に変換）':''}`:''}</span><div class="dialog-footer"><button class="primary" id="continueBtn">レースにもどる</button></div>`,'feedback');$('continueBtn').onclick=()=>{race.acknowledge();closeDialog();handleEvents();syncState();};
+  }
+  function storeResult(completed=true){if(savedRace)return;const result=race.result(completed);result.savedAt=new Date().toISOString();saved.results.push(result);saved.results=saved.results.slice(-20);savedRace=result;if(!persist())toast('記録を保存できませんでした。結果はこの画面で確認できます。');}
+  function resultView(){storeResult();const r=savedRace,correct=r.answers.filter(a=>a.outcome==='correct').length,withHint=r.answers.filter(a=>a.outcome==='correct'&&a.hintUsed).length;
+    showDialog(`<div class="eyebrow">FINISH! おつかれさま</div><h2 id="dialogTitle">走りきったね！</h2><div class="result-banner"><div class="result-place">${r.playerRank}<small>位 / 4</small></div><div class="result-stats"><div>走行タイム<strong>${timeText(r.raceTime)}</strong></div><div>初回正解<strong>${correct} <small>/ 5 問</small></strong></div></div></div><div class="result-summary"><span>ヒントなし ${correct-withHint}問</span><span>ヒントあり ${withHint}問</span><span>CPU ${cpus[r.config.cpu]}</span><span>アシスト ${r.config.assist?'ON':'OFF'}${r.assistChanged?'（途中変更あり）':''}</span></div><h3>今回の算数チャレンジ</h3><ul class="answer-list">${r.answers.map((a,i)=>{const q=race.questions[i];return `<li><span class="outcome ${a.outcome==='correct'?'':'wrong'}">${a.outcome==='correct'?'正解':a.outcome==='skipped'?'未解答':'確認しよう'}</span><span class="answer-text">${i+1}. ${units[q.unit]}${a.hintUsed?' · ヒントあり':''}${a.reviewOutcome?' · 復習済み':''}</span><button data-review="${i}">見なおす</button></li>`;}).join('')}</ul><p class="small-info">今回の5問の結果です。間違えた問題は、もう一度ゆっくり考えられます。${storageOk?'記録はこの端末に保存されます。':'この環境では記録を保存できません。'}</p><div class="dialog-footer"><button class="secondary" id="settingsBtn">設定にもどる</button><button class="secondary" id="reviewBtn">まちがいを復習</button><button class="primary" id="againBtn">もう1レース</button></div>`,'result');
+    document.querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>openReview(Number(b.dataset.review)));$('settingsBtn').onclick=toMenu;$('againBtn').onclick=()=>start({...race.config,sound,large,reduced});$('reviewBtn').onclick=()=>openReview(Math.max(0,r.answers.findIndex(a=>a.outcome!=='correct')));syncState();
+  }
+  function openReview(index){reviewIndex=index;reviewChoice=null;reviewAnswered=false;race.state='REVIEW';reviewView();}
+  function reviewView(){const q=race.questions[reviewIndex];showDialog(`<div class="eyebrow">ふりかえり ${reviewIndex+1} / 5 · ${units[q.unit]}</div><h2 id="dialogTitle">もう一度、考えてみよう</h2><div class="question-prompt">${math(q.prompt)}</div><div class="choices">${q.choices.map((ch,i)=>`<button class="choice ${reviewChoice===ch.id?'selected':''} ${reviewAnswered&&ch.id===q.correctChoiceId?'correct':''}" data-review-choice="${ch.id}" ${reviewAnswered?'disabled':''}><small>${i+1}</small><span>${math(ch.text)}</span></button>`).join('')}</div>${reviewAnswered?`<h3>${reviewChoice===q.correctChoiceId?'正解！':'答えと考え方を確認しよう'}</h3><div class="explanation">${math(q.explanation)}</div>`:`<details class="hint-box"><summary>ヒントを見る</summary>${math(q.hint)}</details>`}<div class="dialog-footer"><button class="secondary" id="backResult">結果にもどる</button>${reviewAnswered?'<button class="primary" id="nextReview">次の問題</button>':`<button class="primary" id="reviewSubmit" ${reviewChoice?'':'disabled'}>この答えにする</button>`}</div><p class="small-info">復習の結果は、レース中の正解数や順位と分けて記録します。</p>`,'review');
+    document.querySelectorAll('[data-review-choice]').forEach(b=>b.onclick=()=>{reviewChoice=b.dataset.reviewChoice;document.querySelectorAll('[data-review-choice]').forEach(el=>el.classList.toggle('selected',el.dataset.reviewChoice===reviewChoice));$('reviewSubmit').disabled=false;});
+    $('backResult').onclick=()=>{race.state='RESULT';resultView();};if($('reviewSubmit'))$('reviewSubmit').onclick=()=>{reviewAnswered=true;savedRace.answers[reviewIndex].reviewOutcome=reviewChoice===q.correctChoiceId?'correct':'incorrect';persist();reviewView();};if($('nextReview'))$('nextReview').onclick=()=>openReview((reviewIndex+1)%5);
+  }
+  function historyView(){showDialog(`<div class="eyebrow">ON THIS DEVICE</div><h2 id="dialogTitle">この端末のレース記録</h2><p class="small-info">直近20レースを表示します。共有PCでは、同じブラウザを使う人の記録がまとめて表示されます。</p><ul class="history-list">${saved.results.length?[...saved.results].reverse().map(r=>`<li><span>${escape(new Date(r.savedAt).toLocaleString('ja-JP',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}))}<br>${r.completed?r.playerRank+'位 · '+timeText(r.raceTime):'中断'}</span><span>正解 ${r.answers.filter(a=>a.outcome==='correct').length} / ${r.answers.length}問<br>${levels[r.config.learning]||''}</span></li>`).join(''):'<li>まだ記録がありません。最初のレースに出かけよう。</li>'}</ul><div class="dialog-footer"><button class="secondary" id="clearHistory" ${saved.results.length?'':'disabled'}>記録を消す</button><button class="primary" id="closeHistory">とじる</button></div>`,'history');$('closeHistory').onclick=closeDialog;$('clearHistory').onclick=()=>{showDialog('<h2 id="dialogTitle">この端末の記録を消しますか？</h2><p>全員分のレース記録が消えます。設定は残ります。</p><div class="dialog-footer"><button class="secondary" id="cancelClear">やめる</button><button class="primary" id="confirmClear">記録を消す</button></div>','clear');$('cancelClear').onclick=historyView;$('confirmClear').onclick=()=>{saved.results=[];persist();historyView();};};}
+  $('historyBtn').onclick=historyView;
+  $('boostBtn').onclick=()=>{if(!race?.boost())toast(race?.player.energy<40?'ブーストにはエネルギー40が必要です':'道路の中で、ブーストが終わってから使おう');handleEvents();};
+  $('itemBtn').onclick=()=>{if(!race?.useItem())toast(race?.player.item==='recovery'?'コースを外れたときに使えます':'使えるアイテムがありません');handleEvents();};
+  $('recoverBtn').onclick=()=>{race?.recover();handleEvents();};
+  function handleEvents(){if(!race)return;for(const e of race.drain()){
+    if(e.type==='quiz'){keys={};quizView();beep(660);}
+    if(e.type==='feedback'){feedbackView();beep(e.outcome==='correct'?880:440);}
+    if(e.type==='reward')toast(`エネルギー ＋${e.gain}${e.item&&!e.converted?' · '+itemNames[e.item]:''}`);
+    if(e.type==='pause')pauseView();
+    if(e.type==='recover'){cam.x=race.player.x;cam.y=race.player.y;toast('コースにもどったよ');}
+    if(e.type==='boost'){beep(720,.2);toast('ブースト！');}
+    if(e.type==='item')toast(itemNames[e.item]+'をつかった！');
+    if(e.type==='pickup'){toast(e.converted?'アイテム所持中 · エネルギー ＋10':itemNames[e.item]+'をゲット！');beep(740);}
+    if(e.type==='race'){closeDialog();lastCount=-1;beep(880,.18);}
+    if(e.type==='finish'){keys={};resultView();beep(1000,.3);}
+  }syncState();}
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Tab'&&!$('overlay').hidden){const controls=[...$('dialog').querySelectorAll('button:not(:disabled),input,select,summary,[tabindex="0"]')].filter(x=>!x.hidden);if(controls.length){const first=controls[0],last=controls.at(-1);if(e.shiftKey&&(document.activeElement===first||document.activeElement===$('dialog'))){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}
+    if(!race)return;
+    if(e.repeat&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','Space','KeyE','KeyR','Enter'].includes(e.code)){e.preventDefault();return;}
+    if(e.code==='Escape'&&!e.repeat){e.preventDefault();if(race.state==='PAUSED'&&modalKind==='pause')resume();else if(['RACING','QUIZ','FEEDBACK','COUNTDOWN','RESUME_COUNTDOWN'].includes(race.state))pause();return;}
+    if(race.state==='QUIZ'){
+      if(/^Digit[123]$/.test(e.code)&&!e.repeat){e.preventDefault();selectChoice(race.questions[race.quizIndex].choices[Number(e.code.slice(-1))-1].id);}
+      // Native buttons keep their Enter behavior; a shortcut elsewhere submits once.
+      if(e.code==='Enter'&&!e.repeat&&document.activeElement.tagName!=='BUTTON'&&race.selected){e.preventDefault();race.answer();handleEvents();}return;
+    }
+    if(race.state==='FEEDBACK'&&e.code==='Enter'&&!e.repeat&&document.activeElement.tagName!=='BUTTON'){e.preventDefault();$('continueBtn').click();return;}
+    if(race.state!=='RACING'||!$('overlay').hidden)return;
+    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD','Space','KeyE','KeyR'].includes(e.code))e.preventDefault();
+    if(e.repeat&&['Space','KeyE','KeyR'].includes(e.code))return;
+    keys[e.code]=true;
+    if(e.code==='Space'){$('boostBtn').click();}if(e.code==='KeyE'){$('itemBtn').click();}if(e.code==='KeyR'){$('recoverBtn').click();}
+  });
+  document.addEventListener('keyup',e=>{delete keys[e.code];});
+  window.addEventListener('blur',()=>{keys={};if(race&&['RACING','QUIZ','FEEDBACK','COUNTDOWN','RESUME_COUNTDOWN'].includes(race.state))pause();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){keys={};if(race)pause();}lastFrame=performance.now();accumulator=0;});
+
+  // Static scenery is cached once. The render loop draws a single transformed map.
+  const map=document.createElement('canvas'),mapScale=4;map.width=540*mapScale;map.height=420*mapScale;const m=map.getContext('2d');m.scale(mapScale,mapScale);
+  function path(g){g.beginPath();C.samples.forEach((p,i)=>i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y));g.closePath();}
+  function tree(g,x,y,r=4){g.fillStyle='#0a3e3d66';g.beginPath();g.ellipse(x+2,y+3,r*.9,r*.7,0,0,Math.PI*2);g.fill();g.fillStyle='#265c50';g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();g.fillStyle='#367562';g.beginPath();g.arc(x-1,y-1,r*.68,0,Math.PI*2);g.fill();g.fillStyle='#4c8a6a';g.beginPath();g.arc(x-1.5,y-1.6,r*.3,0,Math.PI*2);g.fill();}
+  function paintMap(){
+    m.fillStyle='#286452';m.fillRect(0,0,540,420);
+    const r=C.rng(4242);
+    for(let i=0;i<1800;i++){const x=r()*540,y=r()*420;m.fillStyle=i%2?'#296957':'#2d6b57';m.fillRect(x,y,2+r()*6,1+r()*4);}
+    m.strokeStyle='#397860';m.lineWidth=1;for(let y=15;y<420;y+=28){m.beginPath();m.moveTo(0,y);m.lineTo(540,y-70);m.stroke();}
+    path(m);m.lineWidth=31;m.strokeStyle='#173f3c';m.stroke();path(m);m.lineWidth=27;m.strokeStyle='#b5c2a4';m.stroke();
+    path(m);m.lineWidth=25;m.strokeStyle='#d6d3b1';m.stroke();m.setLineDash([7,7]);m.strokeStyle='#df7259';m.stroke();m.setLineDash([]);
+    path(m);m.lineWidth=20;m.strokeStyle='#374b57';m.stroke();
+    path(m);m.lineWidth=18.2;m.strokeStyle='#3c505c';m.stroke();
+    path(m);m.setLineDash([4,5]);m.lineWidth=.22;m.strokeStyle='#b3c5bc88';m.stroke();m.setLineDash([]);
+    for(let side of [-9,9]){m.beginPath();C.samples.forEach((p,i)=>{const q=C.at(p.s,side);i?m.lineTo(q.x,q.y):m.moveTo(q.x,q.y);});m.closePath();m.lineWidth=.25;m.strokeStyle='#e8e4bf99';m.stroke();}
+    // Start/finish checker and grid slots.
+    for(let x=0;x<3;x++)for(let y=0;y<10;y++){m.fillStyle=(x+y)%2?'#213744':'#eee9ce';m.fillRect(268+x*1.4,50+y*2,1.4,2);}
+    m.strokeStyle='#f2f0da70';m.lineWidth=.3;for(const s of [-8,-16])for(const off of [-4,4]){const p=C.at(s,off);m.strokeRect(p.x-2.5,p.y-1.5,5,3);}
+    for(const u of [.06,.52]){const p=C.at(u*C.L);m.save();m.translate(p.x,p.y);m.rotate(p.h);m.fillStyle='#58d6d1';m.globalAlpha=.7;m.fillRect(-1.3,-12,2.6,24);m.globalAlpha=1;m.fillStyle='#163c49';m.fillRect(-3,-19,6,5);m.fillStyle='#a0f4e8';m.font='bold 3.5px sans-serif';m.textAlign='center';m.fillText('?',0,-15.3);m.restore();}
+    for(let i=0;i<250;i++){const x=r()*540,y=r()*420,p=C.project(x,y);if(Math.sqrt(p.dist2)>26&&!(x>185&&x<355&&y>150&&y<265))tree(m,x,y,2+r()*3.8);}
+    // Infield identity and a small pit building.
+    m.textAlign='center';m.fillStyle='#bad7b877';m.font='900 14px sans-serif';m.fillText('STUDY',270,190);m.fillStyle='#c5ddbba0';m.font='900 20px sans-serif';m.fillText('RACERS',270,214);m.fillStyle='#b2d4b977';m.font='4px sans-serif';m.fillText('LEARN  ·  CHARGE  ·  RACE',270,228);
+    m.fillStyle='#1f4543';m.fillRect(220,91,90,20);m.fillStyle='#6c9b91';m.fillRect(218,88,90,18);m.fillStyle='#98b9ac';m.fillRect(218,88,90,3);for(let x=225;x<305;x+=13){m.fillStyle='#244a50';m.fillRect(x,94,9,8);}m.fillStyle='#ffd16c';m.fillRect(223,83,22,5);m.font='bold 3px sans-serif';m.fillStyle='#263c44';m.fillText('PIT LANE',234,86.7);
+  }
+  paintMap();
+  function resize(){width=innerWidth;height=innerHeight;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);}
+  window.addEventListener('resize',resize);resize();
+  function drawCar(g,c,scale=1,player=false){g.save();g.translate(c.x,c.y);g.rotate(c.h);g.scale(scale,scale);g.globalAlpha=c.ghost>0?.55:1;
+    if(c.boost>0){g.fillStyle='#75e5ffbb';g.beginPath();g.moveTo(-2,-.7);g.lineTo(-5.5,.1);g.lineTo(-2,.7);g.fill();g.fillStyle='#fff5b5';g.beginPath();g.moveTo(-2,-.4);g.lineTo(-4,0);g.lineTo(-2,.4);g.fill();}
+    g.fillStyle='#09233355';g.beginPath();g.roundRect(-1.7,-.8,4.3,2.5,.7);g.fill();g.fillStyle='#10232b';for(let x of [-1.2,1.15])for(let y of [-1.1,.75])g.fillRect(x-.45,y,.9,.4);
+    g.fillStyle=c.color;g.beginPath();g.roundRect(-2,-1,4,2,.55);g.fill();g.fillStyle='#ffffff66';g.fillRect(-1.3,-.78,2.6,.2);g.fillStyle='#163449';g.beginPath();g.roundRect(-.6,-.72,1.5,1.44,.25);g.fill();g.fillStyle='#8ad8e6';g.fillRect(.4,-.63,.32,1.26);g.fillStyle=c.color;g.fillRect(-.8,-.4,.75,.8);g.fillStyle='#fffcce';g.fillRect(1.7,-.8,.25,.4);g.fillRect(1.7,.4,.25,.4);g.fillStyle='#c74b3c';g.fillRect(-2,-.7,.2,.35);g.fillRect(-2,.35,.2,.35);
+    if(c.shield>0){g.strokeStyle='#70e7ff';g.lineWidth=.18;g.beginPath();g.ellipse(0,0,2.8,1.8,0,0,Math.PI*2);g.stroke();}
+    if(c.grip>0){g.strokeStyle='#8bedbb';g.lineWidth=.16;g.strokeRect(-2.2,-1.3,4.4,2.6);}
+    g.restore();if(player){g.save();g.translate(c.x,c.y-5);g.fillStyle='#ffe09a';g.beginPath();g.moveTo(-.8,0);g.lineTo(.8,0);g.lineTo(0,1.1);g.fill();g.font='bold 1.5px sans-serif';g.textAlign='center';g.fillText('YOU',0,-.7);g.restore();}}
+  function drawObjects(g){for(const o of C.objects){if(o.type==='box'){const lap=race?race.player.laps:0,used=race?.usedBoxes.has('0:'+lap+':'+o.id);g.save();g.translate(o.x,o.y);g.rotate(Math.PI/4);g.fillStyle=used?'#829c8c44':'#74e2d6';g.strokeStyle=used?'#92ac9e66':'#d2fff5';g.lineWidth=.35;g.fillRect(-1.5,-1.5,3,3);g.strokeRect(-1.5,-1.5,3,3);g.restore();if(!used){g.fillStyle='#164450';g.font='bold 2px sans-serif';g.textAlign='center';g.fillText('?',o.x,o.y+.7);}}else{g.fillStyle='#193b4255';g.beginPath();g.ellipse(o.x+.4,o.y+.4,1.2,.9,0,0,Math.PI*2);g.fill();g.fillStyle='#f28d4a';g.beginPath();g.moveTo(o.x,o.y-1.4);g.lineTo(o.x-1,o.y+1);g.lineTo(o.x+1,o.y+1);g.closePath();g.fill();g.strokeStyle='#ffe0af';g.lineWidth=.35;g.beginPath();g.moveTo(o.x-.5,o.y);g.lineTo(o.x+.5,o.y);g.stroke();}}}
+  function drawWorld(dt){ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#265d50';ctx.fillRect(0,0,width,height);
+    let zoom;
+    if(race){const p=race.player,advance=reduced?0:Math.min(p.v*.6,16),target={x:p.x+Math.cos(p.h)*advance,y:p.y+Math.sin(p.h)*advance};if(race.state==='RACING'){const a=1-Math.exp(-dt/.18);cam.x+=(target.x-cam.x)*a;cam.y+=(target.y-cam.y)*a;}zoom=8*Math.min(width/1280,height/720);}
+    else{cam.x=285;cam.y=210;zoom=Math.max(width/580,height/440)*1.16;}
+    ctx.save();ctx.translate(width/2,height/2);ctx.scale(zoom,zoom);ctx.translate(-cam.x,-cam.y);ctx.drawImage(map,0,0,540,420);drawObjects(ctx);
+    if(race){for(const c of race.cars)if(c.finish===null||c.id===0)drawCar(ctx,c,1,c.id===0);}
+    else for(let i=0;i<4;i++){const p=C.at(menuTime*19+i*24+80);drawCar(ctx,{...p,color:C.colors[i],boost:i===0?1:0,ghost:0,shield:0,grip:0},1.7);}
+    ctx.restore();
+  }
+  function drawMini(){if(!race)return;const g=$('minimap').getContext('2d');g.clearRect(0,0,240,170);g.save();g.translate(8,2);g.scale(.42,.38);path(g);g.lineWidth=18;g.strokeStyle='#44636f';g.stroke();for(const u of [.06,.52]){const p=C.at(u*C.L);g.fillStyle='#68d8d2';g.beginPath();g.arc(p.x,p.y,5,0,7);g.fill();}for(const c of [...race.cars].reverse()){g.fillStyle=c.color;g.beginPath();g.arc(c.x,c.y,c.id===0?10:7,0,7);g.fill();g.fillStyle='#122e3b';g.font='bold 12px sans-serif';g.textAlign='center';g.fillText(c.id===0?'▲':String(c.id),c.x,c.y+4);}g.restore();}
+  function updateHud(){if(!race)return;const p=race.player;$('position').innerHTML=`${race.ranking().findIndex(c=>c.id===0)+1}<span>/ 4</span>`;$('lap').innerHTML=`${Math.min(p.laps+1,3)} <span>/ 3</span>`;$('timer').textContent=timeText(race.time);$('speed').textContent=Math.round(p.v*3.6);$('energy').innerHTML=`${p.energy} <small>/ 100</small>`;$('energyBar').style.width=p.energy+'%';$('boostBtn').disabled=race.state!=='RACING'||p.energy<40||p.boost>0||Math.abs(p.lateral)>10;$('itemName').textContent=p.item?itemNames[p.item]:'アイテムなし';$('itemGlyph').textContent=p.item?glyphs[p.item]:'◇';$('itemBtn').disabled=race.state!=='RACING'||!p.item;$('assistLabel').textContent='アシスト '+(race.config.assist?'ON':'OFF');$('questionProgress').textContent=`算数チャレンジ ${race.quizIndex} / 5`;
+    const distance=C.quizDistances[race.quizIndex]-p.absS;let notice='';if(p.reverse>.6)notice='コースの進む向きに戻ろう';else if(Math.abs(p.lateral)>13)notice='コースの外です · Rキーで戻れます';else if(distance>=0&&distance<30)notice='この先に算数チャレンジ';else if(p.boost>0)notice='BOOST!';else if(p.shield>0)notice='シールド '+Math.ceil(p.shield)+'秒';else if(p.grip>0)notice='ハイグリップ '+Math.ceil(p.grip)+'秒';$('notice').textContent=notice;
+    if(['COUNTDOWN','RESUME_COUNTDOWN'].includes(race.state)){const n=Math.max(1,Math.ceil(race.countdown));$('countdownNumber').textContent=n;if(n!==lastCount){lastCount=n;beep(330,.08);}}
+    drawMini();
+  }
+  let hudElapsed=0;
+  function frame(now){const elapsed=Math.min((now-lastFrame)/1000,.1);lastFrame=now;if(!document.hidden){if(!reduced)menuTime+=elapsed;if(race){race.uiTick(elapsed);handleEvents();if(race.state==='RACING'){accumulator=Math.min(accumulator+elapsed,C.DT*5);while(accumulator>=C.DT&&race.state==='RACING'){race.step({h:Number(!!(keys.ArrowRight||keys.KeyD))-Number(!!(keys.ArrowLeft||keys.KeyA)),a:keys.ArrowUp||keys.KeyW,b:keys.ArrowDown||keys.KeyS});accumulator-=C.DT;}handleEvents();}else accumulator=0;}drawWorld(elapsed);hudElapsed+=elapsed;if(hudElapsed>.08){updateHud();hudElapsed=0;}}requestAnimationFrame(frame);}
+  requestAnimationFrame(frame);
+  // Read-only diagnostics for support and browser QA; no gameplay shortcuts.
+  window.StudyRacers=Object.freeze({snapshot:()=>race?{state:race.state,time:race.time,quizIndex:race.quizIndex,answers:race.answers.map(a=>({...a})),cars:race.cars.map(c=>({id:c.id,x:c.x,y:c.y,v:c.v,progress:c.progress,laps:c.laps,energy:c.energy,boost:c.boost,finish:c.finish})),config:{...race.config}}:{state:'TITLE'},version:'1.0.0'});
+})();
+
+
+</script>
+</body>
+</html>
