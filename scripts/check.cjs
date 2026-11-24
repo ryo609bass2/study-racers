@@ -33,27 +33,36 @@ for (const unit of ['fraction', 'ratio', 'proportion']) {
   }
 }
 
-const race = new C.Race({assist: true, cpu: 'normal', seed: 123}, bank);
-race.uiTick(3.1);
-let questionCount = 0;
-for (let i = 0; i < 600 * 60; i++) {
-  if (race.state === 'RACING') race.step();
-  else if (race.state === 'QUIZ') {
-    questionCount++;
-    const frozen = JSON.stringify({cars: race.cars, time: race.time});
-    for (let j = 0; j < 60; j++) race.step();
-    assert.equal(JSON.stringify({cars: race.cars, time: race.time}), frozen);
-    race.select(race.questions[race.quizIndex].correctChoiceId);
-    assert.equal(race.answer(), true);
-    assert.equal(race.answer(), false);
-    assert.equal(race.acknowledge(), true);
-    assert.equal(race.acknowledge(), false);
-  } else if (race.state === 'RESUME_COUNTDOWN') race.uiTick(3.1);
-  if (race.state === 'RESULT') break;
+assert.deepEqual(Object.keys(C.courses), ['school', 'forest', 'coast']);
+assert.deepEqual(Object.keys(C.vehicles), ['standard', 'corner', 'sprint']);
+for (const courseId of Object.keys(C.courses)) {
+  for (const vehicleId of Object.keys(C.vehicles)) {
+    const label = courseId + '/' + vehicleId;
+    const race = new C.Race({courseId, vehicleId, assist: true, cpu: 'normal', seed: 123}, bank);
+    const lapsAtQuiz = [];
+    race.uiTick(3.1);
+    for (let i = 0; i < 360 * 60; i++) {
+      if (race.state === 'RACING') race.step();
+      else if (race.state === 'QUIZ') {
+        lapsAtQuiz.push(race.player.laps + 1);
+        const frozen = JSON.stringify({cars: race.cars, time: race.time});
+        for (let j = 0; j < 60; j++) race.step();
+        assert.equal(JSON.stringify({cars: race.cars, time: race.time}), frozen, label);
+        race.select(race.questions[race.quizIndex].correctChoiceId);
+        assert.equal(race.answer(), true);
+        assert.equal(race.answer(), false);
+        assert.equal(race.acknowledge(), true);
+        assert.equal(race.acknowledge(), false);
+      } else if (race.state === 'RESUME_COUNTDOWN') race.uiTick(3.1);
+      if (race.state === 'RESULT') break;
+    }
+    assert.equal(race.state, 'RESULT', label + ' must finish');
+    assert.equal(race.player.laps, 3);
+    assert.equal(race.player.recoveries, 0, label + ' should stay on course with assist');
+    assert.deepEqual(lapsAtQuiz, [1, 1, 2, 2, 3]);
+    assert.equal(race.answers.length, 5);
+    assert.ok(race.answers.every(a => a.outcome === 'correct' && a.rewardApplied));
+    console.log(label + ': ' + race.time.toFixed(2) + 's, 3 laps, 5 quizzes');
+  }
 }
-assert.equal(race.state, 'RESULT', 'The race must finish');
-assert.equal(race.player.laps, 3);
-assert.equal(questionCount, 5);
-assert.equal(race.answers.length, 5);
-assert.ok(race.answers.every(a => a.outcome === 'correct' && a.rewardApplied));
-console.log(`PASS: standalone HTML, 45 questions, 3 laps, 5 quizzes, pause and reward checks (${race.time.toFixed(2)} simulation seconds).`);
+console.log('PASS: standalone HTML, 45 questions, all 9 race combinations, pause and reward checks.');
